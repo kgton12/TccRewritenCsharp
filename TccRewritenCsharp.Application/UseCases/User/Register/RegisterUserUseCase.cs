@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TccRewritenCsharp.Application.Utils;
+﻿using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests;
 using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Infrastructure;

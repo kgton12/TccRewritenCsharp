@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TccRewritenCsharp.Application.UseCases.User.Get;
 using TccRewritenCsharp.Application.UseCases.User.Register;
 using TccRewritenCsharp.Communication.Requests;

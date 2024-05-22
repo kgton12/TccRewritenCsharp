@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TccRewritenCsharp.Communication.Requests
+﻿namespace TccRewritenCsharp.Communication.Requests
 {
     public class RequestRegisterUserJson
     {
