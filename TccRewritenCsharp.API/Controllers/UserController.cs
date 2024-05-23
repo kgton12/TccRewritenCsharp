@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TccRewritenCsharp.Application.UseCases.User.Delete;
 using TccRewritenCsharp.Application.UseCases.User.Get;
+using TccRewritenCsharp.Application.UseCases.User.GetId;
 using TccRewritenCsharp.Application.UseCases.User.Register;
+using TccRewritenCsharp.Application.UseCases.User.Update;
 using TccRewritenCsharp.Communication.Requests;
 
 namespace TccRewritenCsharp.API.Controllers
@@ -20,13 +23,17 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult GetUserById(Guid id)
         {
-            return Ok();
+            var useCase = new GetUserByIdUseCase();
+
+            var response = useCase.Execute(id);
+
+            return Ok(response);
         }
 
         [HttpPost]
-        public IActionResult RegisterUser([FromBody] RequestRegisterUserJson request)
+        public IActionResult RegisterUser([FromBody] RequestUserJson request)
         {
             var useCase = new RegisterUserUseCase();
 
@@ -36,15 +43,23 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id)
+        public IActionResult UpdateUserById([FromRoute] Guid id, [FromBody] RequestUserJson request)
         {
-            return Ok();
+            var useCase = new UpdateUserByIdUseCase();
+
+            var response = useCase.Execute(id, request);
+
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteUserById(Guid id)
         {
-            return Ok();
+            var useCase = new DeleteUserByIdUseCase();
+
+            var response = useCase.Execute(id);
+
+            return Ok(response);
         }
     }
 }

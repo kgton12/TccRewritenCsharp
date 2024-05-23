@@ -1,6 +1,6 @@
 ﻿namespace TccRewritenCsharp.Communication.Requests
 {
-    public class RequestRegisterUserJson
+    public class RequestUserJson
     {
         public string Name { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;

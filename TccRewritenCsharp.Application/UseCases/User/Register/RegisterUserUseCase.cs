@@ -14,7 +14,7 @@ namespace TccRewritenCsharp.Application.UseCases.User.Register
             _dbContext = new TccRewritenCsharpDbContext();
         }
 
-        public ResponseRegisteredJson Execute(RequestRegisterUserJson request)
+        public ResponseUserIdJson Execute(RequestUserJson request)
         {
             var validate = new Util();
 
@@ -43,7 +43,7 @@ namespace TccRewritenCsharp.Application.UseCases.User.Register
             _dbContext.User.Add(user);
             _dbContext.SaveChanges();
 
-            return new ResponseRegisteredJson
+            return new ResponseUserIdJson
             {
                 Id = user.Id
             };
