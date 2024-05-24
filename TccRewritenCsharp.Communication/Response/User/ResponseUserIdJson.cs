@@ -1,4 +1,4 @@
-﻿namespace TccRewritenCsharp.Communication.Response
+﻿namespace TccRewritenCsharp.Communication.Response.User
 {
     public class ResponseUserIdJson
     {

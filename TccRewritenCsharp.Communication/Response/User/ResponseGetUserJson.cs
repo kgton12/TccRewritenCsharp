@@ -1,7 +1,8 @@
-﻿namespace TccRewritenCsharp.Communication.Requests
+﻿namespace TccRewritenCsharp.Communication.Response.User
 {
-    public class RequestUserJson
+    public class ResponseGetUserJson
     {
+        public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string Login { get; set; } = string.Empty;

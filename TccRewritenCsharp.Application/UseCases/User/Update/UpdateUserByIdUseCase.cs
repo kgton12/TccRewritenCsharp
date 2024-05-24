@@ -1,5 +1,6 @@
-﻿using TccRewritenCsharp.Communication.Requests;
-using TccRewritenCsharp.Communication.Response;
+﻿using TccRewritenCsharp.Application.Utils;
+using TccRewritenCsharp.Communication.Requests.User;
+using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure;
 
 namespace TccRewritenCsharp.Application.UseCases.User.Update
@@ -15,6 +16,10 @@ namespace TccRewritenCsharp.Application.UseCases.User.Update
 
         public ResponseUserIdJson Execute(Guid id, RequestUserJson request)
         {
+            var validate = new Util();
+
+            validate.Validate(request);
+
             var user = _dbContext.User.FirstOrDefault(x => x.Id == id);
 
             if (user != null)

@@ -1,4 +1,5 @@
-﻿using TccRewritenCsharp.Communication.Response;
+﻿using TccRewritenCsharp.Application.Utils;
+using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure;
 
 namespace TccRewritenCsharp.Application.UseCases.User.GetId
@@ -12,6 +13,10 @@ namespace TccRewritenCsharp.Application.UseCases.User.GetId
         }
         public ResponseGetUserJson Execute(Guid id)
         {
+            var validate = new Util();
+
+            validate.Validate(id);
+
             var user = _dbContext.User.Where(x => x.Id == id).Select(x => new ResponseGetUserJson
             {
                 Id = x.Id,

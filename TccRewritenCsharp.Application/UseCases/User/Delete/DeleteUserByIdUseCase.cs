@@ -1,4 +1,5 @@
-﻿using TccRewritenCsharp.Communication.Response;
+﻿using TccRewritenCsharp.Application.Utils;
+using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure;
 
 namespace TccRewritenCsharp.Application.UseCases.User.Delete
@@ -13,6 +14,10 @@ namespace TccRewritenCsharp.Application.UseCases.User.Delete
 
         public ResponseUserIdJson Execute(Guid id)
         {
+            var validate = new Util();
+
+            validate.Validate(id);
+
             var user = _dbContext.User.FirstOrDefault(x => x.Id == id);
 
             if (user != null)

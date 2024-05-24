@@ -1,6 +1,6 @@
 ﻿using TccRewritenCsharp.Application.Utils;
-using TccRewritenCsharp.Communication.Requests;
-using TccRewritenCsharp.Communication.Response;
+using TccRewritenCsharp.Communication.Requests.User;
+using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure;
 
 namespace TccRewritenCsharp.Application.UseCases.User.Register

@@ -4,13 +4,13 @@ using TccRewritenCsharp.Application.UseCases.User.Get;
 using TccRewritenCsharp.Application.UseCases.User.GetId;
 using TccRewritenCsharp.Application.UseCases.User.Register;
 using TccRewritenCsharp.Application.UseCases.User.Update;
-using TccRewritenCsharp.Communication.Requests;
+using TccRewritenCsharp.Communication.Requests.User;
 
 namespace TccRewritenCsharp.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         [HttpGet]
         public IActionResult GetUser()
