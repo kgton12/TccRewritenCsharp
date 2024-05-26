@@ -32,6 +32,12 @@ namespace TccRewritenCsharp.Application.UseCases.User.Update
                 user.Admin = request.Admin;
                 user.Telephone = request.Telephone;
                 user.UpdatedAt = DateTime.Now;
+                user.Address = request.Address;
+                user.City = request.City;
+                user.State = request.State;
+                user.Country = request.Country;
+                user.ZipCode = request.ZipCode;
+                user.Number = request.Number;
 
                 _dbContext.SaveChanges();
                 return new ResponseUserIdJson

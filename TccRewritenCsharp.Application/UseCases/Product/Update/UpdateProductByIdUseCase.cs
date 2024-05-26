@@ -1,4 +1,5 @@
-﻿using TccRewritenCsharp.Communication.Requests.Product;
+﻿using TccRewritenCsharp.Application.Utils;
+using TccRewritenCsharp.Communication.Requests.Product;
 using TccRewritenCsharp.Communication.Response.Product;
 using TccRewritenCsharp.Infrastructure;
 
@@ -14,6 +15,11 @@ namespace TccRewritenCsharp.Application.UseCases.Product.Update
         }
         public ResponseProductIdJson Execute(Guid id, RequestProductJson request)
         {
+            var validate = new Util();
+
+            validate.Validate(id);
+            validate.Validate(request);
+
             var product = _dbContext.Product.FirstOrDefault(x => x.Id == id);
 
             if (product != null)

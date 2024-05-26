@@ -37,7 +37,13 @@ namespace TccRewritenCsharp.Application.UseCases.User.Register
                 Admin = request.Admin,
                 Telephone = request.Telephone,
                 CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
+                UpdatedAt = DateTime.Now,
+                Address = request.Address,
+                City = request.City,
+                State = request.State,
+                Country = request.Country,
+                ZipCode = request.ZipCode,
+                Number = request.Number
             };
 
             _dbContext.User.Add(user);

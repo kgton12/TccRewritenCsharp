@@ -26,7 +26,13 @@ namespace TccRewritenCsharp.Application.UseCases.User.GetId
                 PassWord = x.PassWord,
                 Email = x.Email,
                 Admin = x.Admin,
-                Telephone = x.Telephone
+                Telephone = x.Telephone,
+                Address = x.Address,
+                City = x.City,
+                State = x.State,
+                Country = x.Country,
+                ZipCode = x.ZipCode,
+                Number = x.Number
             }).FirstOrDefault();
 
             return user ?? throw new Exception("User not found");
