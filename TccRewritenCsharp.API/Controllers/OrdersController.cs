@@ -1,5 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TccRewritenCsharp.Application.UseCases.Order.Delete;
+using TccRewritenCsharp.Application.UseCases.Order.Get;
+using TccRewritenCsharp.Application.UseCases.Order.GetId;
 using TccRewritenCsharp.Application.UseCases.Order.Register;
+using TccRewritenCsharp.Application.UseCases.Order.Update;
+using TccRewritenCsharp.Application.UseCases.Product.Update;
 using TccRewritenCsharp.Communication.Requests.Order;
 using TccRewritenCsharp.Infrastructure.Entities;
 
@@ -9,32 +14,36 @@ namespace TccRewritenCsharp.API.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        // GET: api/Orders
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrder()
+        public ActionResult GetOrder()
         {
-            return Ok();
+            var useCase = new GetOrderUseCase();
+
+            var response = useCase.Execute();
+
+            return Ok(response);
         }
 
-        // GET: api/Orders/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Order>> GetOrder(Guid id)
+        public ActionResult GetOrderById(Guid id)
         {
-            return Ok();
+            var useCase = new GetOrderByIdOrderUseCase();
+
+            var response = useCase.Execute(id);
+
+            return Ok(response);
         }
 
-        // PUT: api/Orders/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder(Guid id, Order order)
+        public ActionResult UpdateOrderById(Guid id, RequestOrderJson request)
         {
+            var useCase = new UpdateOrderByIdUseCase();
 
+            var response = useCase.Execute(id, request);
 
-            return NoContent();
+            return Ok(response);            
         }
 
-        // POST: api/Orders
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public ActionResult RegisterOrder(RequestOrderJson request)
         {
@@ -45,11 +54,15 @@ namespace TccRewritenCsharp.API.Controllers
             return Created(string.Empty, response);
         }
 
-        // DELETE: api/Orders/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOrder(Guid id)
+        public ActionResult DeleteOrderById(Guid id)
         {
-            return Ok();
+            var useCase = new DeleteOrderByIdUseCase();
+
+            var response = useCase.Execute(id);
+
+            return Ok(response);
+
         }
     }
 }

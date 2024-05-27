@@ -18,9 +18,11 @@ namespace TccRewritenCsharp.Application.UseCases.Order.Register
 
             validate.Validate(request);
 
+            var user = _dbContext.User.Find(request.UserId) ?? throw new Exception("User not found");
+
             var order = new Infrastructure.Entities.Order
             {
-                UserId = request.UserId,
+                UserId = user.Id,
                 Quantity = request.Quantity,
                 Total = request.Total,
                 CreatedAt = DateTime.Now,
