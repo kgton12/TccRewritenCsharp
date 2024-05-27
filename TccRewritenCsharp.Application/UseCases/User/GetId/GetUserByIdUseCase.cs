@@ -13,13 +13,13 @@ namespace TccRewritenCsharp.Application.UseCases.User.GetId
             _dbContext = new TccRewritenCsharpDbContext();
         }
 
-        public async Task<ResponseGetUserJson> Execute(Guid id)
+        public async Task<ResponseOrderUserJson> Execute(Guid id)
         {
             var validate = new Util();
 
             validate.Validate(id);
 
-            var user = await _dbContext.User.Where(x => x.Id == id).Select(x => new ResponseGetUserJson
+            var user = await _dbContext.User.Where(x => x.Id == id).Select(x => new ResponseOrderUserJson
             {
                 Id = x.Id,
                 Name = x.Name,

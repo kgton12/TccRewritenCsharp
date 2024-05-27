@@ -12,13 +12,14 @@ namespace TccRewritenCsharp.Application.UseCases.Order.Register
         {
             _dbContext = new TccRewritenCsharpDbContext();
         }
-        public ResponseOrderIdJson Execute(RequestOrderJson request)
+
+        public async Task<ResponseOrderIdJson> Execute(RequestOrderJson request)
         {
             var validate = new Util();
 
             validate.Validate(request);
 
-            var user = _dbContext.User.Find(request.UserId) ?? throw new Exception("User not found");
+            var user = await _dbContext.User.FindAsync(request.UserId) ?? throw new Exception("User not found");
 
             var order = new Infrastructure.Entities.Order
             {
@@ -31,7 +32,7 @@ namespace TccRewritenCsharp.Application.UseCases.Order.Register
             };
 
             _dbContext.Order.Add(order);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return new ResponseOrderIdJson
             {

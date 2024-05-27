@@ -14,7 +14,7 @@ namespace TccRewritenCsharp.API.Controllers
     public class UsersController : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ResponseGetUserJson>>> GetUser()
+        public async Task<ActionResult<IEnumerable<ResponseOrderUserJson>>> GetUser()
         {
             var useCase = new GetUserUseCase();
 
@@ -24,7 +24,7 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ResponseGetUserJson>> GetUserById(Guid id)
+        public async Task<ActionResult<ResponseOrderUserJson>> GetUserById(Guid id)
         {
             var useCase = new GetUserByIdUseCase();
 

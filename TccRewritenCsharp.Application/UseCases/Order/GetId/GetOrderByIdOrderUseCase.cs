@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,18 +17,18 @@ namespace TccRewritenCsharp.Application.UseCases.Order.GetId
             _dbContext = new TccRewritenCsharpDbContext();
         }
 
-        public ResponseOrderJson Execute(Guid id)
+        public async Task<ResponseOrderJson> Execute(Guid id)
         {
-            var order = _dbContext.Order.Where(x => x.Id == id).Select(x => new ResponseOrderJson
+            var order = await _dbContext.Order.Where(x => x.Id == id).Select(x => new ResponseOrderJson
             {
                 Id = x.Id,
                 UserId = x.UserId,
                 Quantity = x.Quantity,
                 Total = x.Total,
                 Status = x.Status
-            }).FirstOrDefault();
+            }).FirstOrDefaultAsync();
 
-           return order ?? throw new Exception("Order not found");
+            return order ?? throw new Exception("Order not found");
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,15 @@ namespace TccRewritenCsharp.Application.UseCases.Order.Delete
         {
             _dbContext = new TccRewritenCsharpDbContext();
         }
-        public ResponseOrderIdJson Execute(Guid id)
+
+        public async Task<ResponseOrderIdJson> Execute(Guid id)
         {
-            var order = _dbContext.Order.FirstOrDefault(x => x.Id == id);
+            var order = await _dbContext.Order.FirstOrDefaultAsync(x => x.Id == id);
 
             if (order != null)
             {
                 _dbContext.Order.Remove(order);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
                 return new ResponseOrderIdJson
                 {
                     Id = order.Id

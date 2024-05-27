@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,9 +19,9 @@ namespace TccRewritenCsharp.Application.UseCases.Order.Update
             _dbContext = new TccRewritenCsharpDbContext();
         }
 
-        public ResponseOrderIdJson Execute(Guid id, RequestOrderJson request)
+        public async Task<ResponseOrderIdJson> Execute(Guid id, RequestOrderJson request)
         {
-            var order = _dbContext.Order.FirstOrDefault(x => x.Id == id);
+            var order = await _dbContext.Order.FirstOrDefaultAsync(x => x.Id == id);
 
             if (order != null)
             {
@@ -30,7 +31,7 @@ namespace TccRewritenCsharp.Application.UseCases.Order.Update
                 order.UpdatedAt = DateTime.Now;
                 order.UserId = request.UserId;
 
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
 
                 return new ResponseOrderIdJson
                 {

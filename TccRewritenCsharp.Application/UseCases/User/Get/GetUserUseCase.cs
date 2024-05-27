@@ -11,9 +11,9 @@ namespace TccRewritenCsharp.Application.UseCases.User.Get
         {
             _dbContext = new TccRewritenCsharpDbContext();
         }
-        public async Task<List<ResponseGetUserJson>> Execute()
+        public async Task<List<ResponseOrderUserJson>> Execute()
         {
-            var user = await _dbContext.User.Select(x => new ResponseGetUserJson
+            var user = await _dbContext.User.Select(x => new ResponseOrderUserJson
             {
                 Id = x.Id,
                 Name = x.Name,
