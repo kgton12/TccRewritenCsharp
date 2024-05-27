@@ -1,4 +1,5 @@
-﻿using TccRewritenCsharp.Application.Utils;
+﻿using Microsoft.EntityFrameworkCore;
+using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure;
 
@@ -11,13 +12,14 @@ namespace TccRewritenCsharp.Application.UseCases.User.GetId
         {
             _dbContext = new TccRewritenCsharpDbContext();
         }
-        public ResponseGetUserJson Execute(Guid id)
+
+        public async Task<ResponseGetUserJson> Execute(Guid id)
         {
             var validate = new Util();
 
             validate.Validate(id);
 
-            var user = _dbContext.User.Where(x => x.Id == id).Select(x => new ResponseGetUserJson
+            var user = await _dbContext.User.Where(x => x.Id == id).Select(x => new ResponseGetUserJson
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -33,7 +35,7 @@ namespace TccRewritenCsharp.Application.UseCases.User.GetId
                 Country = x.Country,
                 ZipCode = x.ZipCode,
                 Number = x.Number
-            }).FirstOrDefault();
+            }).FirstOrDefaultAsync();
 
             return user ?? throw new Exception("User not found");
         }

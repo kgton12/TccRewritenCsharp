@@ -5,6 +5,7 @@ using TccRewritenCsharp.Application.UseCases.User.GetId;
 using TccRewritenCsharp.Application.UseCases.User.Register;
 using TccRewritenCsharp.Application.UseCases.User.Update;
 using TccRewritenCsharp.Communication.Requests.User;
+using TccRewritenCsharp.Communication.Response.User;
 
 namespace TccRewritenCsharp.API.Controllers
 {
@@ -13,51 +14,51 @@ namespace TccRewritenCsharp.API.Controllers
     public class UsersController : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetUser()
+        public async Task<ActionResult<IEnumerable<ResponseGetUserJson>>> GetUser()
         {
             var useCase = new GetUserUseCase();
 
-            var response = useCase.Execute();
+            var response = await useCase.Execute();
 
             return Ok(response);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetUserById(Guid id)
+        public async Task<ActionResult<ResponseGetUserJson>> GetUserById(Guid id)
         {
             var useCase = new GetUserByIdUseCase();
 
-            var response = useCase.Execute(id);
+            var response = await useCase.Execute(id);
 
             return Ok(response);
         }
 
         [HttpPost]
-        public IActionResult RegisterUser([FromBody] RequestUserJson request)
+        public async Task<ActionResult<ResponseUserIdJson>> RegisterUser([FromBody] RequestUserJson request)
         {
             var useCase = new RegisterUserUseCase();
 
-            var response = useCase.Execute(request);
+            var response = await useCase.Execute(request);
 
             return Created(string.Empty, response);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateUserById([FromRoute] Guid id, [FromBody] RequestUserJson request)
+        public async Task<ActionResult<ResponseUserIdJson>> UpdateUserById([FromRoute] Guid id, [FromBody] RequestUserJson request)
         {
             var useCase = new UpdateUserByIdUseCase();
 
-            var response = useCase.Execute(id, request);
+            var response = await useCase.Execute(id, request);
 
             return Ok(response);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteUserById(Guid id)
+        public async Task<ActionResult<ResponseUserIdJson>> DeleteUserById(Guid id)
         {
             var useCase = new DeleteUserByIdUseCase();
 
-            var response = useCase.Execute(id);
+            var response = await useCase.Execute(id);
 
             return Ok(response);
         }

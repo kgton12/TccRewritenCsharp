@@ -1,4 +1,5 @@
-﻿using TccRewritenCsharp.Application.Utils;
+﻿using Microsoft.EntityFrameworkCore;
+using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.User;
 using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure;
@@ -14,13 +15,13 @@ namespace TccRewritenCsharp.Application.UseCases.User.Update
             _dbContext = new TccRewritenCsharpDbContext();
         }
 
-        public ResponseUserIdJson Execute(Guid id, RequestUserJson request)
+        public async Task<ResponseUserIdJson> Execute(Guid id, RequestUserJson request)
         {
             var validate = new Util();
 
             validate.Validate(request);
 
-            var user = _dbContext.User.FirstOrDefault(x => x.Id == id);
+            var user = await _dbContext.User.FirstOrDefaultAsync(x => x.Id == id);
 
             if (user != null)
             {
@@ -39,7 +40,7 @@ namespace TccRewritenCsharp.Application.UseCases.User.Update
                 user.ZipCode = request.ZipCode;
                 user.Number = request.Number;
 
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
                 return new ResponseUserIdJson
                 {
                     Id = user.Id

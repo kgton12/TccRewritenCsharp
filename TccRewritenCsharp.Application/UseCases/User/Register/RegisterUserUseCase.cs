@@ -1,4 +1,5 @@
-﻿using TccRewritenCsharp.Application.Utils;
+﻿using Microsoft.EntityFrameworkCore;
+using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.User;
 using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure;
@@ -7,20 +8,19 @@ namespace TccRewritenCsharp.Application.UseCases.User.Register
 {
     public class RegisterUserUseCase
     {
-
         private readonly TccRewritenCsharpDbContext _dbContext;
+
         public RegisterUserUseCase()
         {
             _dbContext = new TccRewritenCsharpDbContext();
         }
 
-        public ResponseUserIdJson Execute(RequestUserJson request)
+        public async Task<ResponseUserIdJson> Execute(RequestUserJson request)
         {
             var validate = new Util();
-
             validate.Validate(request);
 
-            var userExists = _dbContext.User.Any(x => x.Login == request.Login && x.Email == request.Email);
+            var userExists = await _dbContext.User.AnyAsync(x => x.Login == request.Login && x.Email == request.Email);
 
             if (userExists)
             {
@@ -47,7 +47,7 @@ namespace TccRewritenCsharp.Application.UseCases.User.Register
             };
 
             _dbContext.User.Add(user);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return new ResponseUserIdJson
             {
