@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TccRewritenCsharp.Application.UseCases.OrderItems.Register;
+using TccRewritenCsharp.Communication.Requests.OrderItems;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Entities;
 
@@ -76,12 +73,14 @@ namespace TccRewritenCsharp.API.Controllers
         // POST: api/OrderItems
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<OrderItem>> PostOrderItem(OrderItem orderItem)
+        public async Task<ActionResult<OrderItem>> PostOrderItem([FromBody] RequestOrderItemsJson request)
         {
-            _context.OrderItem.Add(orderItem);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrderItem", new { id = orderItem.Id }, orderItem);
+            var useCase = new RegisterOrderItemsUseCase();
+
+            var response = await useCase.Execute(request);
+
+            return Created(string.Empty, response);
         }
 
         // DELETE: api/OrderItems/5

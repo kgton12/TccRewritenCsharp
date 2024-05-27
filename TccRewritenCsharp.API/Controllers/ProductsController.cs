@@ -6,7 +6,6 @@ using TccRewritenCsharp.Application.UseCases.Product.Register;
 using TccRewritenCsharp.Application.UseCases.Product.Update;
 using TccRewritenCsharp.Communication.Requests.Product;
 using TccRewritenCsharp.Communication.Response.Product;
-using TccRewritenCsharp.Communication.Response.User;
 
 namespace TccRewritenCsharp.API.Controllers
 {

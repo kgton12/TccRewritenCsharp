@@ -4,11 +4,8 @@ using TccRewritenCsharp.Application.UseCases.Order.Get;
 using TccRewritenCsharp.Application.UseCases.Order.GetId;
 using TccRewritenCsharp.Application.UseCases.Order.Register;
 using TccRewritenCsharp.Application.UseCases.Order.Update;
-using TccRewritenCsharp.Application.UseCases.Product.Update;
 using TccRewritenCsharp.Communication.Requests.Order;
 using TccRewritenCsharp.Communication.Response.Order;
-using TccRewritenCsharp.Communication.Response.User;
-using TccRewritenCsharp.Infrastructure.Entities;
 
 namespace TccRewritenCsharp.API.Controllers
 {
@@ -43,7 +40,7 @@ namespace TccRewritenCsharp.API.Controllers
 
             var response = await useCase.Execute(id, request);
 
-            return Ok(response);            
+            return Ok(response);
         }
 
         [HttpPost]

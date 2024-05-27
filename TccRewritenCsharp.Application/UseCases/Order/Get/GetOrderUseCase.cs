@@ -1,13 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TccRewritenCsharp.Communication.Response.Order;
-using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure;
-using TccRewritenCsharp.Infrastructure.Entities;
 
 namespace TccRewritenCsharp.Application.UseCases.Order.Get
 {
