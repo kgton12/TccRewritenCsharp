@@ -1,4 +1,5 @@
-﻿using TccRewritenCsharp.Application.Utils;
+﻿using Microsoft.EntityFrameworkCore;
+using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Response.Product;
 using TccRewritenCsharp.Infrastructure;
 
@@ -11,13 +12,14 @@ namespace TccRewritenCsharp.Application.UseCases.Product.GetId
         {
             _dbContext = new TccRewritenCsharpDbContext();
         }
-        public ResponseGetProductJson Execute(Guid id)
+
+        public async Task<ResponseGetProductJson> Execute(Guid id)
         {
             var validate = new Util();
 
             validate.Validate(id);
 
-            var product = _dbContext.Product.Where(x => x.Id == id).Select(x => new ResponseGetProductJson
+            var product = await _dbContext.Product.Where(x => x.Id == id).Select(x => new ResponseGetProductJson
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -25,7 +27,7 @@ namespace TccRewritenCsharp.Application.UseCases.Product.GetId
                 Price = x.Price,
                 Stock = x.Stock,
                 Category = x.Category
-            }).FirstOrDefault();
+            }).FirstOrDefaultAsync();
 
             return product ?? throw new Exception("Product not found");
         }

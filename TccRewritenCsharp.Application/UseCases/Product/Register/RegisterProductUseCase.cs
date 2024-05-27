@@ -1,4 +1,5 @@
-﻿using TccRewritenCsharp.Application.Utils;
+﻿using Microsoft.EntityFrameworkCore;
+using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.Product;
 using TccRewritenCsharp.Communication.Response.Product;
 using TccRewritenCsharp.Infrastructure;
@@ -13,13 +14,13 @@ namespace TccRewritenCsharp.Application.UseCases.Product.Register
             _dbContext = new TccRewritenCsharpDbContext();
         }
 
-        public ResponseProductIdJson Execute(RequestProductJson request)
+        public async Task<ResponseProductIdJson> Execute(RequestProductJson request)
         {
             var validate = new Util();
 
             validate.Validate(request);
 
-            var productExists = _dbContext.Product.Any(x => x.Name == request.Name);
+            var productExists = await _dbContext.Product.AnyAsync(x => x.Name == request.Name);
 
             if (productExists)
             {
@@ -39,7 +40,7 @@ namespace TccRewritenCsharp.Application.UseCases.Product.Register
             };
 
             _dbContext.Product.Add(product);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return new ResponseProductIdJson
             {

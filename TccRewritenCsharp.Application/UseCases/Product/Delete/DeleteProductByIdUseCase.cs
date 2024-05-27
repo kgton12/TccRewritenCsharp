@@ -1,4 +1,5 @@
-﻿using TccRewritenCsharp.Application.Utils;
+﻿using Microsoft.EntityFrameworkCore;
+using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Response.Product;
 using TccRewritenCsharp.Infrastructure;
 
@@ -11,17 +12,18 @@ namespace TccRewritenCsharp.Application.UseCases.Product.Delete
         {
             _dbContext = new TccRewritenCsharpDbContext();
         }
-        public ResponseProductIdJson Execute(Guid id)
+
+        public async Task<ResponseProductIdJson> Execute(Guid id)
         {
             var validate = new Util();
 
             validate.Validate(id);
-            var product = _dbContext.Product.FirstOrDefault(x => x.Id == id);
+            var product = await _dbContext.Product.FirstOrDefaultAsync(x => x.Id == id);
 
             if (product != null)
             {
                 _dbContext.Product.Remove(product);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
                 return new ResponseProductIdJson
                 {
                     Id = product.Id

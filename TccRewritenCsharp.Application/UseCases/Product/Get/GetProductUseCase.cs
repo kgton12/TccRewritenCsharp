@@ -1,4 +1,5 @@
-﻿using TccRewritenCsharp.Communication.Response.Product;
+﻿using Microsoft.EntityFrameworkCore;
+using TccRewritenCsharp.Communication.Response.Product;
 using TccRewritenCsharp.Infrastructure;
 
 namespace TccRewritenCsharp.Application.UseCases.Product.Get
@@ -10,9 +11,9 @@ namespace TccRewritenCsharp.Application.UseCases.Product.Get
         {
             _dbContext = new TccRewritenCsharpDbContext();
         }
-        public List<ResponseGetProductJson> Execute()
+        public async Task<List<ResponseGetProductJson>> Execute()
         {
-            var product = _dbContext.Product.Select(x => new ResponseGetProductJson
+            var product = await _dbContext.Product.Select(x => new ResponseGetProductJson
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -20,7 +21,7 @@ namespace TccRewritenCsharp.Application.UseCases.Product.Get
                 Price = x.Price,
                 Stock = x.Stock,
                 Category = x.Category
-            }).ToList();
+            }).ToListAsync();
 
             return product ?? throw new Exception("Product not found");
         }
