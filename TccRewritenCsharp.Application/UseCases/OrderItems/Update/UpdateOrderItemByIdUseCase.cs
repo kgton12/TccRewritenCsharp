@@ -1,16 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TccRewritenCsharp.Application.Utils;
-using TccRewritenCsharp.Communication.Requests.Order;
 using TccRewritenCsharp.Communication.Requests.OrderItems;
 using TccRewritenCsharp.Communication.Response.Order;
-using TccRewritenCsharp.Communication.Response.OrderItems;
 using TccRewritenCsharp.Infrastructure;
-using TccRewritenCsharp.Infrastructure.Entities;
 
 namespace TccRewritenCsharp.Application.UseCases.OrderItems.Update
 {

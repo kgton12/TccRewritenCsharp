@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.OrderItems;
-using TccRewritenCsharp.Communication.Requests.User;
 using TccRewritenCsharp.Communication.Response.OrderItems;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Entities;

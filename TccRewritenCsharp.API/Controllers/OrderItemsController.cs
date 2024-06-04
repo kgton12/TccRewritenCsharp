@@ -1,17 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TccRewritenCsharp.Application.UseCases.Order.Delete;
-using TccRewritenCsharp.Application.UseCases.Order.Get;
-using TccRewritenCsharp.Application.UseCases.Order.GetId;
-using TccRewritenCsharp.Application.UseCases.Order.Update;
 using TccRewritenCsharp.Application.UseCases.OrderItems.Delete;
 using TccRewritenCsharp.Application.UseCases.OrderItems.Get;
 using TccRewritenCsharp.Application.UseCases.OrderItems.GetId;
 using TccRewritenCsharp.Application.UseCases.OrderItems.Register;
 using TccRewritenCsharp.Application.UseCases.OrderItems.Update;
 using TccRewritenCsharp.Communication.Requests.OrderItems;
-using TccRewritenCsharp.Communication.Response.OrderItems;
-using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Entities;
 
 namespace TccRewritenCsharp.API.Controllers
@@ -73,6 +66,6 @@ namespace TccRewritenCsharp.API.Controllers
             var response = await useCase.Execute(id);
 
             return Ok(response);
-        }        
+        }
     }
 }
