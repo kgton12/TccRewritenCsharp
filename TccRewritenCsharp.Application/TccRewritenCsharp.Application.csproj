@@ -11,11 +11,4 @@
     <ProjectReference Include="..\TccRewritenCsharp.Infrastructure\TccRewritenCsharp.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\OrderItems\Delete\" />
-    <Folder Include="UseCases\OrderItems\Get\" />
-    <Folder Include="UseCases\OrderItems\GetId\" />
-    <Folder Include="UseCases\OrderItems\Update\" />
-  </ItemGroup>
-
 </Project>

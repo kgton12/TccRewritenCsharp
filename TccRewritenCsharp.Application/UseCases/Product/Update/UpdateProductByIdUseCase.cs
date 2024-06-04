@@ -19,7 +19,6 @@ namespace TccRewritenCsharp.Application.UseCases.Product.Update
         {
             var validate = new Util();
 
-            validate.Validate(id);
             validate.Validate(request);
 
             var product = await _dbContext.Product.FirstOrDefaultAsync(x => x.Id == id);

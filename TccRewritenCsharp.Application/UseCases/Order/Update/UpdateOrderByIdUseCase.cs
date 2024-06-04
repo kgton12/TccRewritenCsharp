@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.Order;
 using TccRewritenCsharp.Communication.Response.Order;
 using TccRewritenCsharp.Infrastructure;
@@ -15,6 +16,10 @@ namespace TccRewritenCsharp.Application.UseCases.Order.Update
 
         public async Task<ResponseOrderIdJson> Execute(Guid id, RequestOrderJson request)
         {
+            var validate = new Util();
+
+            validate.Validate(request);
+
             var order = await _dbContext.Order.FirstOrDefaultAsync(x => x.Id == id);
 
             if (order != null)

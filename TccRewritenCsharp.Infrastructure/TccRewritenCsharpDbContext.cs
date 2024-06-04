@@ -12,8 +12,7 @@ namespace TccRewritenCsharp.Infrastructure
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite($"Data Source=D:\\Estudo C#\\TccRewritenCsharp\\TccRewritenCsharp.Infrastructure\\TccRewritenCsharpDbContext.db");
+            optionsBuilder.UseSqlite(ConfigurationDb.ConnectionString);
         }
-
     }
 }

@@ -1,7 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TccRewritenCsharp.Application.UseCases.Order.Delete;
+using TccRewritenCsharp.Application.UseCases.Order.Get;
+using TccRewritenCsharp.Application.UseCases.Order.GetId;
+using TccRewritenCsharp.Application.UseCases.Order.Update;
+using TccRewritenCsharp.Application.UseCases.OrderItems.Delete;
+using TccRewritenCsharp.Application.UseCases.OrderItems.Get;
+using TccRewritenCsharp.Application.UseCases.OrderItems.GetId;
 using TccRewritenCsharp.Application.UseCases.OrderItems.Register;
+using TccRewritenCsharp.Application.UseCases.OrderItems.Update;
 using TccRewritenCsharp.Communication.Requests.OrderItems;
+using TccRewritenCsharp.Communication.Response.OrderItems;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Entities;
 
@@ -11,71 +20,43 @@ namespace TccRewritenCsharp.API.Controllers
     [ApiController]
     public class OrderItemsController : ControllerBase
     {
-        private readonly TccRewritenCsharpDbContext _context;
-
-        public OrderItemsController(TccRewritenCsharpDbContext context)
-        {
-            _context = context;
-        }
-
         // GET: api/OrderItems
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<OrderItem>>> GetOrderItem()
+        [HttpGet("/api/Order/OrderItems/{idOrder}")]
+        public async Task<ActionResult<IEnumerable<OrderItem>>> GetFullOrder(Guid idOrder)
         {
-            return await _context.OrderItem.ToListAsync();
+            var useCase = new GetFullOrderItemUseCase();
+
+            var response = await useCase.Execute(idOrder);
+
+            return Ok(response);
         }
 
         // GET: api/OrderItems/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<OrderItem>> GetOrderItem(Guid id)
+        [HttpGet("{idOrdemItem}")]
+        public async Task<ActionResult<OrderItem>> GetOrderItem(Guid idOrdemItem)
         {
-            var orderItem = await _context.OrderItem.FindAsync(id);
+            var useCase = new GetOrderItemByIdOrderUseCase();
 
-            if (orderItem == null)
-            {
-                return NotFound();
-            }
+            var response = await useCase.Execute(idOrdemItem);
 
-            return orderItem;
+            return Ok(response);
         }
 
         // PUT: api/OrderItems/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrderItem(Guid id, OrderItem orderItem)
+        public async Task<ActionResult<OrderItem>> PutOrderItem(Guid id, [FromBody] RequestOrderItemsJson orderItem)
         {
-            if (id != orderItem.Id)
-            {
-                return BadRequest();
-            }
+            var useCase = new UpdateOrderItemByIdUseCase();
 
-            _context.Entry(orderItem).State = EntityState.Modified;
+            var response = await useCase.Execute(id, orderItem);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrderItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok(response);
         }
 
         // POST: api/OrderItems
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<OrderItem>> PostOrderItem([FromBody] RequestOrderItemsJson request)
         {
-
             var useCase = new RegisterOrderItemsUseCase();
 
             var response = await useCase.Execute(request);
@@ -87,21 +68,11 @@ namespace TccRewritenCsharp.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrderItem(Guid id)
         {
-            var orderItem = await _context.OrderItem.FindAsync(id);
-            if (orderItem == null)
-            {
-                return NotFound();
-            }
+            var useCase = new DeleteOrderItemsByIdUseCase();
 
-            _context.OrderItem.Remove(orderItem);
-            await _context.SaveChangesAsync();
+            var response = await useCase.Execute(id);
 
-            return NoContent();
-        }
-
-        private bool OrderItemExists(Guid id)
-        {
-            return _context.OrderItem.Any(e => e.Id == id);
-        }
+            return Ok(response);
+        }        
     }
 }
