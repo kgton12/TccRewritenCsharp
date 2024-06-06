@@ -26,7 +26,7 @@ namespace TccRewritenCsharp.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ResponseOrderJson>> GetOrderById(Guid id)
         {
-            var useCase = new GetOrderByIdOrderUseCase();
+            var useCase = new GetOrderByIdUseCase();
 
             var response = await useCase.Execute(id);
 

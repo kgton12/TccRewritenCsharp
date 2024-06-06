@@ -4,10 +4,10 @@ using TccRewritenCsharp.Infrastructure;
 
 namespace TccRewritenCsharp.Application.UseCases.Order.GetId
 {
-    public class GetOrderByIdOrderUseCase
+    public class GetOrderByIdUseCase
     {
         private readonly TccRewritenCsharpDbContext _dbContext;
-        public GetOrderByIdOrderUseCase()
+        public GetOrderByIdUseCase()
         {
             _dbContext = new TccRewritenCsharpDbContext();
         }

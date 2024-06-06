@@ -30,7 +30,7 @@ namespace TccRewritenCsharp.Application.UseCases.Product.Update
                 product.Price = request.Price;
                 product.Stock = request.Stock;
                 product.Image = request.Image;
-                product.Category = request.Category;
+                product.CategoryId = request.CategoryId;
                 product.UpdatedAt = DateTime.Now;
 
                 await _dbContext.SaveChangesAsync();

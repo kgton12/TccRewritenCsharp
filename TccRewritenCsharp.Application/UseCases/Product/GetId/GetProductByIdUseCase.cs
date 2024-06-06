@@ -26,7 +26,7 @@ namespace TccRewritenCsharp.Application.UseCases.Product.GetId
                 Description = x.Description,
                 Price = x.Price,
                 Stock = x.Stock,
-                Category = x.Category
+                CategoryId = x.CategoryId
             }).FirstOrDefaultAsync();
 
             return product ?? throw new Exception("Product not found");

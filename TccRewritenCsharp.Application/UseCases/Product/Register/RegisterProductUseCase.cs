@@ -33,7 +33,7 @@ namespace TccRewritenCsharp.Application.UseCases.Product.Register
                 Description = request.Description,
                 Price = request.Price,
                 Stock = request.Stock,
-                Category = request.Category,
+                CategoryId = request.CategoryId,
                 Image = request.Image,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
