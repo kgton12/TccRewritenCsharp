@@ -1,7 +1,6 @@
 ﻿namespace TccRewritenCsharp.Communication.Response.Product
 {
-    public class ResponseProductIdJson
-    {
-        public Guid Id { get; set; }
+    public class ResponseProductIdJson : ResponseIdJson
+    {        
     }
 }
