@@ -1,13 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TccRewritenCsharp.Communication.Response.Order;
 using TccRewritenCsharp.Communication.Response.OrderItems;
 using TccRewritenCsharp.Infrastructure;
-using TccRewritenCsharp.Infrastructure.Entities;
 
 namespace TccRewritenCsharp.Application.UseCases.Order.GetFull
 {
@@ -29,11 +23,11 @@ namespace TccRewritenCsharp.Application.UseCases.Order.GetFull
             if (order == null)
             {
                 throw new Exception("Order not found");
-            }            
+            }
 
             foreach (var item in orderItems)
             {
-                total += item.Quantity * item.UnitaryValue; 
+                total += item.Quantity * item.UnitaryValue;
             }
 
             var response = new ResponseFullOrderJson
@@ -46,7 +40,7 @@ namespace TccRewritenCsharp.Application.UseCases.Order.GetFull
                     ProductId = x.ProductId,
                     Quantity = x.Quantity,
                     Total = x.Quantity * x.UnitaryValue,
-                    UnitaryValue = x.UnitaryValue,               
+                    UnitaryValue = x.UnitaryValue,
                 }).ToList(),
                 Total = total,
                 Quantity = orderItems.Count,

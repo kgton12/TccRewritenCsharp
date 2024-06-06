@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TccRewritenCsharp.Communication.Response.OrderItems;
-using TccRewritenCsharp.Infrastructure.Entities;
+﻿using TccRewritenCsharp.Communication.Response.OrderItems;
 using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Communication.Response.Order
