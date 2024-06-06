@@ -25,7 +25,6 @@ namespace TccRewritenCsharp.Application.UseCases.Order.Register
             {
                 UserId = user.Id,
                 Quantity = request.Quantity,
-                Total = request.Total,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
                 Status = request.Status

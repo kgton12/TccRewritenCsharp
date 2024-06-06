@@ -6,7 +6,6 @@ namespace TccRewritenCsharp.Communication.Requests.Order
     {
         public Guid UserId { get; set; }
         public int Quantity { get; set; }
-        public decimal Total { get; set; }
         public Status Status { get; set; }
     }
 }

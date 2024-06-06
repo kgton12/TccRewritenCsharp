@@ -9,8 +9,8 @@ namespace TccRewritenCsharp.Infrastructure.Entities
 
         [ForeignKey("OrderId")]
         public Order Order { get; set; } = default!;
-
         public Guid ProductId { get; set; }
+
         [ForeignKey("ProductId")]
         public Product Product { get; set; } = default!;
 

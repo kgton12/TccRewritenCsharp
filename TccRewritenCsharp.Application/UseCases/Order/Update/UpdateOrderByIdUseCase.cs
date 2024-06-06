@@ -25,7 +25,6 @@ namespace TccRewritenCsharp.Application.UseCases.Order.Update
             if (order != null)
             {
                 order.Status = request.Status;
-                order.Total = request.Total;
                 order.Quantity = request.Quantity;
                 order.UpdatedAt = DateTime.Now;
                 order.UserId = request.UserId;

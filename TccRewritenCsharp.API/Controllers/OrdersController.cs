@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TccRewritenCsharp.Application.UseCases.Order.Delete;
 using TccRewritenCsharp.Application.UseCases.Order.Get;
+using TccRewritenCsharp.Application.UseCases.Order.GetFull;
 using TccRewritenCsharp.Application.UseCases.Order.GetId;
 using TccRewritenCsharp.Application.UseCases.Order.Register;
 using TccRewritenCsharp.Application.UseCases.Order.Update;
@@ -27,6 +28,15 @@ namespace TccRewritenCsharp.API.Controllers
         public async Task<ActionResult<ResponseOrderJson>> GetOrderById(Guid id)
         {
             var useCase = new GetOrderByIdUseCase();
+
+            var response = await useCase.Execute(id);
+
+            return Ok(response);
+        }
+        [HttpGet("fullorder/{id}")]
+        public async Task<ActionResult<ResponseFullOrderJson>> GetFullOrderById(Guid id)
+        {
+            var useCase = new GetFullOrderByIdUseCase();
 
             var response = await useCase.Execute(id);
 
