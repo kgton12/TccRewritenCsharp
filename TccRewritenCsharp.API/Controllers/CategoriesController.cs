@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using TccRewritenCsharp.Application.UseCases.Category.Delete;
 using TccRewritenCsharp.Application.UseCases.Category.Get;
 using TccRewritenCsharp.Application.UseCases.Category.GetId;
 using TccRewritenCsharp.Application.UseCases.Category.Register;
 using TccRewritenCsharp.Application.UseCases.Category.Update;
-using TccRewritenCsharp.Application.UseCases.Order.Delete;
-using TccRewritenCsharp.Application.UseCases.Order.Get;
-using TccRewritenCsharp.Application.UseCases.Order.Register;
-using TccRewritenCsharp.Application.UseCases.Order.Update;
 using TccRewritenCsharp.Communication.Requests.Category;
 using TccRewritenCsharp.Communication.Response.Category;
-using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Entities;
 
 namespace TccRewritenCsharp.API.Controllers

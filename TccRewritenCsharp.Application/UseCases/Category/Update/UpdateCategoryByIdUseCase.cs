@@ -1,14 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.Category;
-using TccRewritenCsharp.Communication.Requests.Order;
 using TccRewritenCsharp.Communication.Response.Category;
-using TccRewritenCsharp.Communication.Response.Order;
 using TccRewritenCsharp.Infrastructure;
 
 namespace TccRewritenCsharp.Application.UseCases.Category.Update
