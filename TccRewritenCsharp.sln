@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TccRewritenCsharp.Infrastructure", "TccRewritenCsharp.Infrastructure\TccRewritenCsharp.Infrastructure.csproj", "{7D77190E-C202-4225-97D9-F8326FDEE1C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TccRewritenCsharp.Infrastructure", "TccRewritenCsharp.Infrastructure\TccRewritenCsharp.Infrastructure.csproj", "{7D77190E-C202-4225-97D9-F8326FDEE1C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TccRewritenCsharp.Exceptions", "TccRewritenCsharp.Exceptions\TccRewritenCsharp.Exceptions.csproj", "{23851A27-BC89-4903-8D11-2E112A5F73AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TccRewritenCsharp.Exceptions", "TccRewritenCsharp.Exceptions\TccRewritenCsharp.Exceptions.csproj", "{23851A27-BC89-4903-8D11-2E112A5F73AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TccRewritenCsharp.Communication", "TccRewritenCsharp.Communication\TccRewritenCsharp.Communication.csproj", "{DE127888-6AB2-47B6-9F9E-528891B8205A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TccRewritenCsharp.Communication", "TccRewritenCsharp.Communication\TccRewritenCsharp.Communication.csproj", "{DE127888-6AB2-47B6-9F9E-528891B8205A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TccRewritenCsharp.Application", "TccRewritenCsharp.Application\TccRewritenCsharp.Application.csproj", "{3BAB8348-0D90-435D-8899-F13E559718BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TccRewritenCsharp.Application", "TccRewritenCsharp.Application\TccRewritenCsharp.Application.csproj", "{3BAB8348-0D90-435D-8899-F13E559718BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TccRewritenCsharp.API", "TccRewritenCsharp.API\TccRewritenCsharp.API.csproj", "{24773E23-149E-41E3-A2D5-F022E45E198A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TccRewritenCsharp.API", "TccRewritenCsharp.API\TccRewritenCsharp.API.csproj", "{24773E23-149E-41E3-A2D5-F022E45E198A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TccRewritenCsharp.Test", "TccRewritenCsharp.Test\TccRewritenCsharp.Test.csproj", "{8C8F56DA-ACA1-4E4F-A4C5-10E312A64824}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{24773E23-149E-41E3-A2D5-F022E45E198A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24773E23-149E-41E3-A2D5-F022E45E198A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24773E23-149E-41E3-A2D5-F022E45E198A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C8F56DA-ACA1-4E4F-A4C5-10E312A64824}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C8F56DA-ACA1-4E4F-A4C5-10E312A64824}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C8F56DA-ACA1-4E4F-A4C5-10E312A64824}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C8F56DA-ACA1-4E4F-A4C5-10E312A64824}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
