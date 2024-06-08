@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TccRewritenCsharp.Communication.Response.Order;
+using TccRewritenCsharp.Communication.Response.OrderItems;
 using TccRewritenCsharp.Infrastructure;
 
 namespace TccRewritenCsharp.Application.UseCases.OrderItems.Delete
@@ -11,7 +11,7 @@ namespace TccRewritenCsharp.Application.UseCases.OrderItems.Delete
         {
             _dbContext = new TccRewritenCsharpDbContext();
         }
-        public async Task<ResponseOrderIdJson> Execute(Guid id)
+        public async Task<ResponseOrderItemsIdJson> Execute(Guid id)
         {
             var orderItem = await _dbContext.OrderItem.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -19,7 +19,7 @@ namespace TccRewritenCsharp.Application.UseCases.OrderItems.Delete
             {
                 _dbContext.OrderItem.Remove(orderItem);
                 await _dbContext.SaveChangesAsync();
-                return new ResponseOrderIdJson
+                return new ResponseOrderItemsIdJson
                 {
                     Id = orderItem.Id
                 };

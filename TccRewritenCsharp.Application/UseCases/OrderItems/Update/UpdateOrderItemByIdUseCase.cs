@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.OrderItems;
-using TccRewritenCsharp.Communication.Response.Order;
+using TccRewritenCsharp.Communication.Response.OrderItems;
 using TccRewritenCsharp.Infrastructure;
 
 namespace TccRewritenCsharp.Application.UseCases.OrderItems.Update
@@ -13,7 +13,7 @@ namespace TccRewritenCsharp.Application.UseCases.OrderItems.Update
         {
             _dbContext = new TccRewritenCsharpDbContext();
         }
-        public async Task<ResponseOrderIdJson> Execute(Guid orderItemId, RequestOrderItemsJson request)
+        public async Task<ResponseOrderItemsIdJson> Execute(Guid orderItemId, RequestOrderItemsJson request)
         {
             var validate = new Util();
 
@@ -30,7 +30,7 @@ namespace TccRewritenCsharp.Application.UseCases.OrderItems.Update
 
                 await _dbContext.SaveChangesAsync();
 
-                return new ResponseOrderIdJson
+                return new ResponseOrderItemsIdJson
                 {
                     Id = orderItem.Id
                 };

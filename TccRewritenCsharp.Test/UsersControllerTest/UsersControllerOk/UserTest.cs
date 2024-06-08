@@ -18,7 +18,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
             UserId = Guid.Empty;
         }
         [Fact]
-        public async Task Execute_All_Test()
+        public async Task ExecuteAllTest()
         {
             await RegisterUserTestOk();
             await GetUserByIdTestOk();

@@ -1,25 +1,12 @@
 ﻿using Bogus;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TccRewritenCsharp.Application.UseCases.Category.Delete;
 using TccRewritenCsharp.Application.UseCases.Category.Get;
 using TccRewritenCsharp.Application.UseCases.Category.GetId;
 using TccRewritenCsharp.Application.UseCases.Category.Register;
 using TccRewritenCsharp.Application.UseCases.Category.Update;
-using TccRewritenCsharp.Application.UseCases.User.Delete;
-using TccRewritenCsharp.Application.UseCases.User.Get;
-using TccRewritenCsharp.Application.UseCases.User.GetId;
-using TccRewritenCsharp.Application.UseCases.User.Register;
-using TccRewritenCsharp.Application.UseCases.User.Update;
 using TccRewritenCsharp.Communication.Requests.Category;
-using TccRewritenCsharp.Communication.Requests.User;
 using TccRewritenCsharp.Communication.Response.Category;
-using TccRewritenCsharp.Communication.Response.User;
-using TccRewritenCsharp.Infrastructure.Entities;
 
 namespace TccRewritenCsharp.Test.CategoriesControllertest.CategoriesControllerOk
 {

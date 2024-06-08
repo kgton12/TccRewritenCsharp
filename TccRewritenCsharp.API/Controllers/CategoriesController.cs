@@ -6,7 +6,6 @@ using TccRewritenCsharp.Application.UseCases.Category.Register;
 using TccRewritenCsharp.Application.UseCases.Category.Update;
 using TccRewritenCsharp.Communication.Requests.Category;
 using TccRewritenCsharp.Communication.Response.Category;
-using TccRewritenCsharp.Infrastructure.Entities;
 
 namespace TccRewritenCsharp.API.Controllers
 {
