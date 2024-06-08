@@ -16,7 +16,7 @@ namespace TccRewritenCsharp.API.Controllers
     {
         // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategory()
+        public async Task<ActionResult<IEnumerable<ResponseCategoryJson>>> GetCategory()
         {
             var useCase = new GetCategoryUseCase();
 
@@ -27,7 +27,7 @@ namespace TccRewritenCsharp.API.Controllers
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(Guid id)
+        public async Task<ActionResult<ResponseCategoryJson>> GetCategory(Guid id)
         {
             var useCase = new GetCategoryrByIdUseCase();
 
@@ -38,7 +38,7 @@ namespace TccRewritenCsharp.API.Controllers
 
         // PUT: api/Categories/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateOrderById(Guid id, RequestCategoryJson request)
+        public async Task<ActionResult<ResponseCategoryIdJson>> UpdateOrderById(Guid id, RequestCategoryJson request)
         {
             var useCase = new UpdateCategoryByIdUseCase();
 
@@ -61,7 +61,7 @@ namespace TccRewritenCsharp.API.Controllers
 
         // DELETE: api/Categories/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory(Guid id)
+        public async Task<ActionResult<ResponseCategoryIdJson>> DeleteCategory(Guid id)
         {
             var useCase = new DeleteCategoryByIdUseCase();
 

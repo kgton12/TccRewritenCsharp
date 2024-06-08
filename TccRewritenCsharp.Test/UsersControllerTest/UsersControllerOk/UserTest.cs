@@ -10,24 +10,24 @@ using TccRewritenCsharp.Communication.Response.User;
 
 namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 {
-    public class RegisterUser_Test
+    public class UserTest
     {
         public Guid UserId { get; set; }
-        public RegisterUser_Test()
+        public UserTest()
         {
             UserId = Guid.Empty;
         }
         [Fact]
         public async Task Execute_All_Test()
         {
-            await RegisterUser_Test_Ok();
-            await GetUserById_Test_Ok();
-            await GetUser_Test_Ok();
-            await UpdateUserById_Test_Ok();
-            await DeleteUserById_Test_Ok();
+            await RegisterUserTestOk();
+            await GetUserByIdTestOk();
+            await GetUserTestOk();
+            await UpdateUserByIdTestOk();
+            await DeleteUserByIdTestOk();
         }
 
-        internal async Task RegisterUser_Test_Ok()
+        internal async Task RegisterUserTestOk()
         {
             var request = new Faker<RequestUserJson>()
                 .RuleFor(x => x.Name, f => f.Person.FirstName)
@@ -52,7 +52,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 
             response.Should().BeOfType<ResponseUserIdJson>();
         }
-        internal async Task GetUserById_Test_Ok()
+        internal async Task GetUserByIdTestOk()
         {
             var useCase = new GetUserByIdUseCase();
 
@@ -60,7 +60,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 
             response.Should().BeOfType<ResponseOrderUserJson>();
         }
-        internal async Task GetUser_Test_Ok()
+        internal async Task GetUserTestOk()
         {
             var useCase = new GetUserUseCase();
 
@@ -68,7 +68,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 
             response.Should().BeOfType<List<ResponseOrderUserJson>>();
         }
-        internal async Task UpdateUserById_Test_Ok()
+        internal async Task UpdateUserByIdTestOk()
         {
             var request = new Faker<RequestUserJson>()
                 .RuleFor(x => x.Name, f => f.Person.FirstName)
@@ -91,7 +91,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 
             response.Should().BeOfType<ResponseUserIdJson>();
         }
-        internal async Task DeleteUserById_Test_Ok()
+        internal async Task DeleteUserByIdTestOk()
         {
             var useCase = new DeleteUserByIdUseCase();
 
