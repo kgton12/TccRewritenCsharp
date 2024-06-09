@@ -2,15 +2,16 @@
 using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.User.Delete
 {
     public class DeleteUserByIdUseCase
     {
         private readonly TccRewritenCsharpDbContext _dbContext;
-        public DeleteUserByIdUseCase()
+        public DeleteUserByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
         {
-            _dbContext = new TccRewritenCsharpDbContext();
+            _dbContext = new TccRewritenCsharpDbContext(environment);
         }
 
         public async Task<ResponseUserIdJson> Execute(Guid id)

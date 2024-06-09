@@ -2,15 +2,16 @@
 using TccRewritenCsharp.Communication.Requests.Order;
 using TccRewritenCsharp.Communication.Response.Order;
 using TccRewritenCsharp.Infrastructure;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Order.Register
 {
     public class RegisterOrderUseCase
     {
         private readonly TccRewritenCsharpDbContext _dbContext;
-        public RegisterOrderUseCase()
+        public RegisterOrderUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
         {
-            _dbContext = new TccRewritenCsharpDbContext();
+            _dbContext = new TccRewritenCsharpDbContext(environment);
         }
 
         public async Task<ResponseOrderIdJson> Execute(RequestOrderJson request)

@@ -53,7 +53,7 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
                 .RuleFor(x => x.UnitaryValue, f => f.Random.Decimal(1, 1000))
                 .Generate();
 
-            var useCase = new RegisterOrderItemsUseCase();
+            var useCase = new RegisterOrderItemsUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(request);
             OrderItemId = response.Id;
@@ -62,7 +62,7 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
         }
         internal async Task GetOrderItemByIdTestOk()
         {
-            var useCase = new GetFullOrderItemUseCase();
+            var useCase = new GetFullOrderItemUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(OrderId);
 
@@ -70,7 +70,7 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
         }
         internal async Task GetOrderItemTestOk()
         {
-            var useCase = new GetFullOrderItemUseCase();
+            var useCase = new GetFullOrderItemUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(OrderId);
 
@@ -86,7 +86,7 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
                 .RuleFor(x => x.UnitaryValue, f => f.Random.Decimal(1, 1000))
                 .Generate();
 
-            var useCase = new UpdateOrderItemByIdUseCase();
+            var useCase = new UpdateOrderItemByIdUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(OrderItemId, request);
 
@@ -94,7 +94,7 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
         }
         internal async Task DeleteOrderItemByIdTestOk()
         {
-            var useCase = new DeleteOrderItemsByIdUseCase();
+            var useCase = new DeleteOrderItemsByIdUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(OrderItemId);
 
@@ -103,7 +103,7 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
 
         internal static async Task<Guid> CheckIfIxistsOrder()
         {
-            var orderUseCase = new GetOrderUseCase();
+            var orderUseCase = new GetOrderUseCase(ServiceEnvironment.Development);
 
             var orderResponse = await orderUseCase.Execute();
 
@@ -122,7 +122,7 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
                  .RuleFor(x => x.Status, f => f.PickRandom<Status>())
                  .Generate();
 
-                var registerOrderUseCase = new RegisterOrderUseCase();
+                var registerOrderUseCase = new RegisterOrderUseCase(ServiceEnvironment.Development);
 
                 var response = await registerOrderUseCase.Execute(request);
                 return response.Id;
@@ -131,7 +131,7 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
 
         internal static async Task<Guid> CheckIfIxistsProduct()
         {
-            var GetProductUseCase = new GetProductUseCase();
+            var GetProductUseCase = new GetProductUseCase(ServiceEnvironment.Development);
 
             var ProductResponse = await GetProductUseCase.Execute();
 
@@ -153,7 +153,7 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
                .RuleFor(x => x.CategoryId, CategoryId)
                .Generate();
 
-                var registerProductUseCase = new RegisterProductUseCase();
+                var registerProductUseCase = new RegisterProductUseCase(ServiceEnvironment.Development);
 
                 var productResponse = await registerProductUseCase.Execute(request);
 

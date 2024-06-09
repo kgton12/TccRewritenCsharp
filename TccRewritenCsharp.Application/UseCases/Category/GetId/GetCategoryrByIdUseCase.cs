@@ -1,15 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Communication.Response.Category;
 using TccRewritenCsharp.Infrastructure;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Category.GetId
 {
     public class GetCategoryrByIdUseCase
     {
         private readonly TccRewritenCsharpDbContext _dbContext;
-        public GetCategoryrByIdUseCase()
+        public GetCategoryrByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
         {
-            _dbContext = new TccRewritenCsharpDbContext();
+            _dbContext = new TccRewritenCsharpDbContext(environment);
         }
 
         public async Task<ResponseCategoryJson> Execute(Guid id)

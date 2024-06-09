@@ -47,7 +47,7 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
                 .RuleFor(x => x.Status, f => f.PickRandom<Status>())
                 .Generate();
 
-            var useCase = new RegisterOrderUseCase();
+            var useCase = new RegisterOrderUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(request);
             OrderId = response.Id;
@@ -56,7 +56,7 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
         }
         internal async Task GetOrderByIdTestOk()
         {
-            var useCase = new GetOrderByIdUseCase();
+            var useCase = new GetOrderByIdUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(OrderId);
 
@@ -64,7 +64,7 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
         }
         internal async Task GetOrderTestOk()
         {
-            var useCase = new GetOrderUseCase();
+            var useCase = new GetOrderUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute();
 
@@ -72,7 +72,7 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
         }
         internal async Task GetFullOrderTestOk()
         {
-            var useCase = new GetFullOrderByIdUseCase();
+            var useCase = new GetFullOrderByIdUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(OrderId);
 
@@ -86,7 +86,7 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
                 .RuleFor(x => x.Status, f => f.PickRandom<Status>())
                 .Generate();
 
-            var useCase = new UpdateOrderByIdUseCase();
+            var useCase = new UpdateOrderByIdUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(OrderId, request);
 
@@ -94,7 +94,7 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
         }
         internal async Task DeleteOrderByIdTestOk()
         {
-            var useCase = new DeleteOrderByIdUseCase();
+            var useCase = new DeleteOrderByIdUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(OrderId);
 
@@ -103,7 +103,7 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
 
         public async Task<Guid> CheckIfIxistsUser()
         {
-            var UserUseCase = new GetUserUseCase();
+            var UserUseCase = new GetUserUseCase(ServiceEnvironment.Development);
 
             var UserResponse = await UserUseCase.Execute();
 
@@ -129,7 +129,7 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
                .RuleFor(x => x.Number, f => f.Address.BuildingNumber())
                .Generate();
 
-                var RegisterUseCase = new RegisterUserUseCase();
+                var RegisterUseCase = new RegisterUserUseCase(ServiceEnvironment.Development);
 
                 var response = await RegisterUseCase.Execute(request);
                 return response.Id;

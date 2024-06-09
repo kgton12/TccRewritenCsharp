@@ -7,6 +7,7 @@ using TccRewritenCsharp.Application.UseCases.Category.Register;
 using TccRewritenCsharp.Application.UseCases.Category.Update;
 using TccRewritenCsharp.Communication.Requests.Category;
 using TccRewritenCsharp.Communication.Response.Category;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Test.CategoriesControllertest.CategoriesControllerOk
 {
@@ -35,7 +36,7 @@ namespace TccRewritenCsharp.Test.CategoriesControllertest.CategoriesControllerOk
                 .RuleFor(x => x.Description, f => f.Lorem.Word())
                 .Generate();
 
-            var useCase = new RegisterCategoryUseCase();
+            var useCase = new RegisterCategoryUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(request);
             CategoryId = response.Id;
@@ -44,7 +45,7 @@ namespace TccRewritenCsharp.Test.CategoriesControllertest.CategoriesControllerOk
         }
         internal async Task GetCategoryByIdTestOk()
         {
-            var useCase = new GetCategoryrByIdUseCase();
+            var useCase = new GetCategoryrByIdUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(CategoryId);
 
@@ -52,7 +53,7 @@ namespace TccRewritenCsharp.Test.CategoriesControllertest.CategoriesControllerOk
         }
         internal async Task GetCategoryTestOk()
         {
-            var useCase = new GetCategoryUseCase();
+            var useCase = new GetCategoryUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute();
 
@@ -64,7 +65,7 @@ namespace TccRewritenCsharp.Test.CategoriesControllertest.CategoriesControllerOk
                 .RuleFor(x => x.Name, f => f.Lorem.Word())
                 .RuleFor(x => x.Description, f => f.Lorem.Word())
                 .Generate();
-            var useCase = new UpdateCategoryByIdUseCase();
+            var useCase = new UpdateCategoryByIdUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(CategoryId, request);
 
@@ -72,7 +73,7 @@ namespace TccRewritenCsharp.Test.CategoriesControllertest.CategoriesControllerOk
         }
         internal async Task DeleteCategoryByIdTestOk()
         {
-            var useCase = new DeleteCategoryByIdUseCase();
+            var useCase = new DeleteCategoryByIdUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(CategoryId);
 

@@ -1,15 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Communication.Response.Order;
 using TccRewritenCsharp.Infrastructure;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Order.GetId
 {
     public class GetOrderByIdUseCase
     {
         private readonly TccRewritenCsharpDbContext _dbContext;
-        public GetOrderByIdUseCase()
+        public GetOrderByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
         {
-            _dbContext = new TccRewritenCsharpDbContext();
+            _dbContext = new TccRewritenCsharpDbContext(environment);
         }
 
         public async Task<ResponseOrderJson> Execute(Guid id)

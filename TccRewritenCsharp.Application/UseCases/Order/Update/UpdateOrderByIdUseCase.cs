@@ -3,15 +3,16 @@ using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.Order;
 using TccRewritenCsharp.Communication.Response.Order;
 using TccRewritenCsharp.Infrastructure;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Order.Update
 {
     public class UpdateOrderByIdUseCase
     {
         private readonly TccRewritenCsharpDbContext _dbContext;
-        public UpdateOrderByIdUseCase()
+        public UpdateOrderByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
         {
-            _dbContext = new TccRewritenCsharpDbContext();
+            _dbContext = new TccRewritenCsharpDbContext(environment);
         }
 
         public async Task<ResponseOrderIdJson> Execute(Guid id, RequestOrderJson request)

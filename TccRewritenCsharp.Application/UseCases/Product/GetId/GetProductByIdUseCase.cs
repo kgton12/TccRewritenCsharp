@@ -2,15 +2,16 @@
 using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Response.Product;
 using TccRewritenCsharp.Infrastructure;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Product.GetId
 {
     public class GetProductByIdUseCase
     {
         private readonly TccRewritenCsharpDbContext _dbContext;
-        public GetProductByIdUseCase()
+        public GetProductByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
         {
-            _dbContext = new TccRewritenCsharpDbContext();
+            _dbContext = new TccRewritenCsharpDbContext(environment);
         }
 
         public async Task<ResponseGetProductJson> Execute(Guid id)

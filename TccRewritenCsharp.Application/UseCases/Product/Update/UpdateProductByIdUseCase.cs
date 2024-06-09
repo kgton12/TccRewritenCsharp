@@ -3,6 +3,7 @@ using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.Product;
 using TccRewritenCsharp.Communication.Response.Product;
 using TccRewritenCsharp.Infrastructure;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Product.Update
 {
@@ -10,9 +11,9 @@ namespace TccRewritenCsharp.Application.UseCases.Product.Update
     {
         private readonly TccRewritenCsharpDbContext _dbContext;
 
-        public UpdateProductByIdUseCase()
+        public UpdateProductByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
         {
-            _dbContext = new TccRewritenCsharpDbContext();
+            _dbContext = new TccRewritenCsharpDbContext(environment);
         }
 
         public async Task<ResponseProductIdJson> Execute(Guid id, RequestProductJson request)

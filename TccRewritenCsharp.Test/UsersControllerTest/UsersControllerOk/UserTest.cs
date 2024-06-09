@@ -7,6 +7,7 @@ using TccRewritenCsharp.Application.UseCases.User.Register;
 using TccRewritenCsharp.Application.UseCases.User.Update;
 using TccRewritenCsharp.Communication.Requests.User;
 using TccRewritenCsharp.Communication.Response.User;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 {
@@ -45,7 +46,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
                 .RuleFor(x => x.Number, f => f.Address.BuildingNumber())
                 .Generate();
 
-            var useCase = new RegisterUserUseCase();
+            var useCase = new RegisterUserUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(request);
             UserId = response.Id;
@@ -54,7 +55,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
         }
         internal async Task GetUserByIdTestOk()
         {
-            var useCase = new GetUserByIdUseCase();
+            var useCase = new GetUserByIdUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(UserId);
 
@@ -62,7 +63,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
         }
         internal async Task GetUserTestOk()
         {
-            var useCase = new GetUserUseCase();
+            var useCase = new GetUserUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute();
 
@@ -85,7 +86,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
                 .RuleFor(x => x.ZipCode, f => f.Address.ZipCode())
                 .RuleFor(x => x.Number, f => f.Address.BuildingNumber())
                 .Generate();
-            var useCase = new UpdateUserByIdUseCase();
+            var useCase = new UpdateUserByIdUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(UserId, request);
 
@@ -93,7 +94,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
         }
         internal async Task DeleteUserByIdTestOk()
         {
-            var useCase = new DeleteUserByIdUseCase();
+            var useCase = new DeleteUserByIdUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(UserId);
 

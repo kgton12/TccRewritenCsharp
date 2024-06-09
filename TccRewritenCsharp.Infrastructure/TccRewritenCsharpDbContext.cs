@@ -1,10 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Infrastructure.Entities;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Infrastructure
 {
     public class TccRewritenCsharpDbContext : DbContext
     {
+        internal ServiceEnvironment Environment { get; set; }
+        public TccRewritenCsharpDbContext(ServiceEnvironment environment = ServiceEnvironment.Production)
+        {
+            Environment = environment;
+        }
         public DbSet<User> User { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<Order> Order { get; set; }
@@ -13,7 +19,14 @@ namespace TccRewritenCsharp.Infrastructure
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(ConfigurationDb.ConnectionString);
+            if (Environment == ServiceEnvironment.Production)
+            {
+                optionsBuilder.UseSqlite(ConfigurationDb.ConnectionString);
+            }
+            else if (Environment == ServiceEnvironment.Development)
+            {
+                optionsBuilder.UseInMemoryDatabase("MyDatabase");
+            }
         }
     }
 }

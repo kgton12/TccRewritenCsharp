@@ -10,6 +10,7 @@ using TccRewritenCsharp.Application.UseCases.Product.Update;
 using TccRewritenCsharp.Communication.Requests.Category;
 using TccRewritenCsharp.Communication.Requests.Product;
 using TccRewritenCsharp.Communication.Response.Product;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
 {
@@ -46,7 +47,7 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
                 .RuleFor(x => x.CategoryId, CategoryId)
                 .Generate();
 
-            var useCase = new RegisterProductUseCase();
+            var useCase = new RegisterProductUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(request);
             ProductId = response.Id;
@@ -56,7 +57,7 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
 
         internal async Task GetProductByIdTestOk()
         {
-            var useCase = new GetProductByIdUseCase();
+            var useCase = new GetProductByIdUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(ProductId);
 
@@ -65,7 +66,7 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
 
         internal async Task GetProductTestOk()
         {
-            var useCase = new GetProductUseCase();
+            var useCase = new GetProductUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute();
 
@@ -83,7 +84,7 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
                 .RuleFor(x => x.CategoryId, CategoryId)
                 .Generate();
 
-            var useCase = new UpdateProductByIdUseCase();
+            var useCase = new UpdateProductByIdUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(ProductId, request);
 
@@ -92,7 +93,7 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
 
         internal async Task DeleteProductByIdTestOk()
         {
-            var useCase = new DeleteProductByIdUseCase();
+            var useCase = new DeleteProductByIdUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute(ProductId);
 
@@ -100,7 +101,7 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
         }
         public async Task<Guid> CheckIfIxistsCategory()
         {
-            var useCaseCategory = new GetCategoryUseCase();
+            var useCaseCategory = new GetCategoryUseCase(ServiceEnvironment.Development);
 
             var responseCategory = await useCaseCategory.Execute();
 
@@ -115,7 +116,7 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
                .RuleFor(x => x.Description, f => f.Lorem.Word())
                .Generate();
 
-                var useCaseRegisterCategory = new RegisterCategoryUseCase();
+                var useCaseRegisterCategory = new RegisterCategoryUseCase(ServiceEnvironment.Development);
 
                 var response = await useCaseRegisterCategory.Execute(request);
                 return response.Id;

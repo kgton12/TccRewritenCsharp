@@ -2,15 +2,16 @@
 using TccRewritenCsharp.Communication.Response.Order;
 using TccRewritenCsharp.Communication.Response.OrderItems;
 using TccRewritenCsharp.Infrastructure;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Order.GetFull
 {
     public class GetFullOrderByIdUseCase
     {
         private readonly TccRewritenCsharpDbContext _dbContext;
-        public GetFullOrderByIdUseCase()
+        public GetFullOrderByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
         {
-            _dbContext = new TccRewritenCsharpDbContext();
+            _dbContext = new TccRewritenCsharpDbContext(environment);
         }
 
         public async Task<ResponseFullOrderJson> Execute(Guid id)

@@ -2,15 +2,16 @@
 using TccRewritenCsharp.Communication.Requests.Category;
 using TccRewritenCsharp.Communication.Response.Category;
 using TccRewritenCsharp.Infrastructure;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Category.Register
 {
     public class RegisterCategoryUseCase
     {
         private readonly TccRewritenCsharpDbContext _dbContext;
-        public RegisterCategoryUseCase()
+        public RegisterCategoryUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
         {
-            _dbContext = new TccRewritenCsharpDbContext();
+            _dbContext = new TccRewritenCsharpDbContext(environment);
         }
         public async Task<ResponseCategoryIdJson> Execute(RequestCategoryJson request)
         {

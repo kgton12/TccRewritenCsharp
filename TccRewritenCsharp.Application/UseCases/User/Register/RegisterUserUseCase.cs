@@ -3,6 +3,7 @@ using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.User;
 using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.User.Register
 {
@@ -10,9 +11,9 @@ namespace TccRewritenCsharp.Application.UseCases.User.Register
     {
         private readonly TccRewritenCsharpDbContext _dbContext;
 
-        public RegisterUserUseCase()
+        public RegisterUserUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
         {
-            _dbContext = new TccRewritenCsharpDbContext();
+            _dbContext = new TccRewritenCsharpDbContext(environment);
         }
 
         public async Task<ResponseUserIdJson> Execute(RequestUserJson request)

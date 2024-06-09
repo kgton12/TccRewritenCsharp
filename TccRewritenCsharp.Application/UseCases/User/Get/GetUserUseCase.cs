@@ -1,15 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.User.Get
 {
     public class GetUserUseCase
     {
         private readonly TccRewritenCsharpDbContext _dbContext;
-        public GetUserUseCase()
+        public GetUserUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
         {
-            _dbContext = new TccRewritenCsharpDbContext();
+            _dbContext = new TccRewritenCsharpDbContext(environment);
         }
         public async Task<List<ResponseOrderUserJson>> Execute()
         {

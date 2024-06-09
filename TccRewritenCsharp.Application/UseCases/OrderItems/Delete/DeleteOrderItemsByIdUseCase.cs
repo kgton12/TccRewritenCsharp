@@ -1,15 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Communication.Response.OrderItems;
 using TccRewritenCsharp.Infrastructure;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.OrderItems.Delete
 {
     public class DeleteOrderItemsByIdUseCase
     {
         private readonly TccRewritenCsharpDbContext _dbContext;
-        public DeleteOrderItemsByIdUseCase()
+        public DeleteOrderItemsByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
         {
-            _dbContext = new TccRewritenCsharpDbContext();
+            _dbContext = new TccRewritenCsharpDbContext(environment);
         }
         public async Task<ResponseOrderItemsIdJson> Execute(Guid id)
         {

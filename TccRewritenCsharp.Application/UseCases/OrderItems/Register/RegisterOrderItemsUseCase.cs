@@ -4,15 +4,16 @@ using TccRewritenCsharp.Communication.Requests.OrderItems;
 using TccRewritenCsharp.Communication.Response.OrderItems;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Entities;
+using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.OrderItems.Register
 {
     public class RegisterOrderItemsUseCase
     {
         private readonly TccRewritenCsharpDbContext _dbContext;
-        public RegisterOrderItemsUseCase()
+        public RegisterOrderItemsUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
         {
-            _dbContext = new TccRewritenCsharpDbContext();
+            _dbContext = new TccRewritenCsharpDbContext(environment);
         }
         public async Task<ResponseOrderItemsIdJson> Execute(RequestOrderItemsJson request)
         {
