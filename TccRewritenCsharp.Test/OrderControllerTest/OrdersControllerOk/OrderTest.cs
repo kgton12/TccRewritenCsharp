@@ -6,7 +6,10 @@ using TccRewritenCsharp.Application.UseCases.Order.GetFull;
 using TccRewritenCsharp.Application.UseCases.Order.GetId;
 using TccRewritenCsharp.Application.UseCases.Order.Register;
 using TccRewritenCsharp.Application.UseCases.Order.Update;
+using TccRewritenCsharp.Application.UseCases.User.Get;
+using TccRewritenCsharp.Application.UseCases.User.Register;
 using TccRewritenCsharp.Communication.Requests.Order;
+using TccRewritenCsharp.Communication.Requests.User;
 using TccRewritenCsharp.Communication.Response.Order;
 using TccRewritenCsharp.Infrastructure.Enums;
 
@@ -15,9 +18,11 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
     public class OrderTest
     {
         public Guid OrderId { get; set; }
+        public Guid UserId { get; set; }
         public OrderTest()
         {
             OrderId = Guid.Empty;
+            UserId = Guid.Empty;
         }
 
         [Fact]
@@ -33,9 +38,11 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
 
         internal async Task RegisterOrderTestOk()
         {
-            Guid newGuid = new("C3B3DB8D-9F54-4933-9098-8A9BAAB0FD38");
+
+            UserId = await CheckIfIxistsUser();
+
             var request = new Faker<RequestOrderJson>()
-                .RuleFor(x => x.UserId, f => newGuid)
+                .RuleFor(x => x.UserId, f => UserId)
                 .RuleFor(x => x.Quantity, f => f.Random.Int(1, 100))
                 .RuleFor(x => x.Status, f => f.PickRandom<Status>())
                 .Generate();
@@ -73,9 +80,8 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
         }
         internal async Task UpdateOrderByIdTestOk()
         {
-            Guid newGuid = new("C3B3DB8D-9F54-4933-9098-8A9BAAB0FD38");
             var request = new Faker<RequestOrderJson>()
-                .RuleFor(x => x.UserId, f => newGuid)
+                .RuleFor(x => x.UserId, f => UserId)
                 .RuleFor(x => x.Quantity, f => f.Random.Int(1, 100))
                 .RuleFor(x => x.Status, f => f.PickRandom<Status>())
                 .Generate();
@@ -93,6 +99,41 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
             var response = await useCase.Execute(OrderId);
 
             response.Should().BeOfType<ResponseOrderIdJson>();
+        }
+
+        public async Task<Guid> CheckIfIxistsUser()
+        {
+            var UserUseCase = new GetUserUseCase();
+
+            var UserResponse = await UserUseCase.Execute();
+
+            if (UserResponse.Count > 0)
+            {
+                return UserResponse[0].Id;
+            }
+            else
+            {
+                var request = new Faker<RequestUserJson>()
+               .RuleFor(x => x.Name, f => f.Person.FirstName)
+               .RuleFor(x => x.LastName, f => f.Person.LastName)
+               .RuleFor(x => x.Login, f => f.Person.UserName)
+               .RuleFor(x => x.PassWord, f => f.Internet.Password())
+               .RuleFor(x => x.Email, f => f.Person.Email)
+               .RuleFor(x => x.Admin, f => f.Random.Bool())
+               .RuleFor(x => x.Telephone, f => f.Person.Phone)
+               .RuleFor(x => x.Address, f => f.Address.StreetName())
+               .RuleFor(x => x.City, f => f.Address.City())
+               .RuleFor(x => x.State, f => f.Address.State())
+               .RuleFor(x => x.Country, f => f.Address.Country())
+               .RuleFor(x => x.ZipCode, f => f.Address.ZipCode())
+               .RuleFor(x => x.Number, f => f.Address.BuildingNumber())
+               .Generate();
+
+                var RegisterUseCase = new RegisterUserUseCase();
+
+                var response = await RegisterUseCase.Execute(request);
+                return response.Id;
+            }
         }
     }
 }

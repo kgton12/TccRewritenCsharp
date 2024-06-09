@@ -1,11 +1,20 @@
 ﻿using Bogus;
 using FluentAssertions;
+using TccRewritenCsharp.Application.UseCases.Order.Get;
+using TccRewritenCsharp.Application.UseCases.Order.Register;
 using TccRewritenCsharp.Application.UseCases.OrderItems.Delete;
 using TccRewritenCsharp.Application.UseCases.OrderItems.Get;
 using TccRewritenCsharp.Application.UseCases.OrderItems.Register;
 using TccRewritenCsharp.Application.UseCases.OrderItems.Update;
+using TccRewritenCsharp.Application.UseCases.Product.Get;
+using TccRewritenCsharp.Application.UseCases.Product.Register;
+using TccRewritenCsharp.Communication.Requests.Order;
 using TccRewritenCsharp.Communication.Requests.OrderItems;
+using TccRewritenCsharp.Communication.Requests.Product;
 using TccRewritenCsharp.Communication.Response.OrderItems;
+using TccRewritenCsharp.Infrastructure.Enums;
+using TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk;
+using TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK;
 
 namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsControllerOk
 {
@@ -16,9 +25,9 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
         public Guid ProductId { get; set; }
         public OrderItemItemsTest()
         {
-            OrderId = new("F05F64F8-1725-439C-B482-4ADB50FFDC2F");
+            OrderId = Guid.Empty;
             OrderItemId = Guid.Empty;
-            ProductId = new("25087EAA-43AB-4ECC-BE17-70FC10B3ECFE");
+            ProductId = Guid.Empty;
         }
 
         [Fact]
@@ -33,6 +42,9 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
 
         internal async Task RegisterOrderItemTestOk()
         {
+            OrderId = await CheckIfIxistsOrder();
+            ProductId = await CheckIfIxistsProduct();
+
             var request = new Faker<RequestOrderItemsJson>()
                 .RuleFor(x => x.OrderId, f => OrderId)
                 .RuleFor(x => x.ProductId, f => ProductId)
@@ -87,6 +99,66 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
             var response = await useCase.Execute(OrderItemId);
 
             response.Should().BeOfType<ResponseOrderItemsIdJson>();
+        }
+
+        internal static async Task<Guid> CheckIfIxistsOrder()
+        {
+            var orderUseCase = new GetOrderUseCase();
+
+            var orderResponse = await orderUseCase.Execute();
+
+            if (orderResponse.Count > 0)
+            {
+                return orderResponse[0].Id;
+            }
+            else
+            {
+                var orderTestUseCase = new OrderTest();
+                var userId = await orderTestUseCase.CheckIfIxistsUser();
+
+                var request = new Faker<RequestOrderJson>()
+                 .RuleFor(x => x.UserId, f => userId)
+                 .RuleFor(x => x.Quantity, f => f.Random.Int(1, 100))
+                 .RuleFor(x => x.Status, f => f.PickRandom<Status>())
+                 .Generate();
+
+                var registerOrderUseCase = new RegisterOrderUseCase();
+
+                var response = await registerOrderUseCase.Execute(request);
+                return response.Id;
+            }
+        }
+
+        internal static async Task<Guid> CheckIfIxistsProduct()
+        {
+            var GetProductUseCase = new GetProductUseCase();
+
+            var ProductResponse = await GetProductUseCase.Execute();
+
+            if (ProductResponse.Count > 0)
+            {
+                return ProductResponse[0].Id;
+            }
+            else
+            {
+                var ProductTestUseCase = new ProductTest();
+                var CategoryId = await ProductTestUseCase.CheckIfIxistsCategory();
+
+                var request = new Faker<RequestProductJson>()
+               .RuleFor(x => x.Name, f => f.Commerce.ProductName())
+               .RuleFor(x => x.Description, f => f.Commerce.ProductDescription())
+               .RuleFor(x => x.Price, f => f.Random.Decimal(0, 1000))
+               .RuleFor(x => x.Stock, f => f.Random.Int(0, 1000))
+               .RuleFor(x => x.Image, f => f.Image.PicsumUrl())
+               .RuleFor(x => x.CategoryId, CategoryId)
+               .Generate();
+
+                var registerProductUseCase = new RegisterProductUseCase();
+
+                var productResponse = await registerProductUseCase.Execute(request);
+
+                return productResponse.Id;
+            }
         }
     }
 }
