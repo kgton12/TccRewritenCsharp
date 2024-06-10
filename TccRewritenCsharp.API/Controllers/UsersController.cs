@@ -5,6 +5,8 @@ using TccRewritenCsharp.Application.UseCases.User.GetId;
 using TccRewritenCsharp.Application.UseCases.User.Register;
 using TccRewritenCsharp.Application.UseCases.User.Update;
 using TccRewritenCsharp.Communication.Requests.User;
+using TccRewritenCsharp.Communication.Response;
+using TccRewritenCsharp.Communication.Response.User;
 
 
 namespace TccRewritenCsharp.API.Controllers

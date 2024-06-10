@@ -6,7 +6,7 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.User.Delete
 {
-    public class DeleteUserByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
+    public class DeleteUserByIdUseCase
     {
         private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
