@@ -114,7 +114,7 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
             else
             {
                 var orderTestUseCase = new OrderTest();
-                var userId = await orderTestUseCase.CheckIfIxistsUser();
+                var userId = await OrderTest.CheckIfIxistsUser();
 
                 var request = new Faker<RequestOrderJson>()
                  .RuleFor(x => x.UserId, f => userId)
@@ -142,7 +142,7 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
             else
             {
                 var ProductTestUseCase = new ProductTest();
-                var CategoryId = await ProductTestUseCase.CheckIfIxistsCategory();
+                var CategoryId = await ProductTest.CheckIfIxistsCategory();
 
                 var request = new Faker<RequestProductJson>()
                .RuleFor(x => x.Name, f => f.Commerce.ProductName())

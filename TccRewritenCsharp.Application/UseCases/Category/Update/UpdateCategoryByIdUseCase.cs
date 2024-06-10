@@ -17,9 +17,7 @@ namespace TccRewritenCsharp.Application.UseCases.Category.Update
 
         public async Task<ResponseCategoryIdJson> Execute(Guid id, RequestCategoryJson request)
         {
-            var validate = new Util();
-
-            validate.Validate(request);
+            Util.Validate(request);
 
             var category = await _dbContext.Category.FirstOrDefaultAsync(x => x.Id == id);
 

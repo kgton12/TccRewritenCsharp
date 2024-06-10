@@ -6,19 +6,13 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Order.Register
 {
-    public class RegisterOrderUseCase
+    public class RegisterOrderUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public RegisterOrderUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
         public async Task<ResponseOrderIdJson> Execute(RequestOrderJson request)
         {
-            var validate = new Util();
-
-            validate.Validate(request);
+            Util.Validate(request);
 
             var user = await _dbContext.User.FindAsync(request.UserId) ?? throw new Exception("User not found");
 

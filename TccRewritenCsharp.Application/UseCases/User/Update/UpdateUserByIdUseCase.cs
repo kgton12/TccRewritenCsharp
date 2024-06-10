@@ -7,20 +7,13 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.User.Update
 {
-    public class UpdateUserByIdUseCase
+    public class UpdateUserByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-
-        public UpdateUserByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
         public async Task<ResponseUserIdJson> Execute(Guid id, RequestUserJson request)
         {
-            var validate = new Util();
-
-            validate.Validate(request);
+            Util.Validate(request);
 
             var user = await _dbContext.User.FirstOrDefaultAsync(x => x.Id == id);
 

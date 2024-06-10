@@ -15,7 +15,7 @@ namespace TccRewritenCsharp.API.Controllers
     {
         // GET: api/OrderItems
         [HttpGet("/api/Order/OrderItems/{idOrder}")]
-        public async Task<ActionResult<IEnumerable<ResponseGetOrderItemsJson>>> GetFullOrder(Guid idOrder)
+        public async Task<ActionResult> GetFullOrder(Guid idOrder)
         {
             var useCase = new GetFullOrderItemUseCase();
 
@@ -26,7 +26,7 @@ namespace TccRewritenCsharp.API.Controllers
 
         // GET: api/OrderItems/5
         [HttpGet("{idOrdemItem}")]
-        public async Task<ActionResult<ResponseGetOrderItemsJson>> GetOrderItem(Guid idOrdemItem)
+        public async Task<ActionResult> GetOrderItem(Guid idOrdemItem)
         {
             var useCase = new GetOrderItemByIdOrderUseCase();
 
@@ -37,7 +37,7 @@ namespace TccRewritenCsharp.API.Controllers
 
         // PUT: api/OrderItems/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<ResponseOrderItemsIdJson>> PutOrderItem(Guid id, [FromBody] RequestOrderItemsJson orderItem)
+        public async Task<ActionResult> PutOrderItem(Guid id, [FromBody] RequestOrderItemsJson orderItem)
         {
             var useCase = new UpdateOrderItemByIdUseCase();
 
@@ -48,7 +48,7 @@ namespace TccRewritenCsharp.API.Controllers
 
         // POST: api/OrderItems
         [HttpPost]
-        public async Task<ActionResult<ResponseOrderItemsIdJson>> PostOrderItem([FromBody] RequestOrderItemsJson request)
+        public async Task<ActionResult> PostOrderItem([FromBody] RequestOrderItemsJson request)
         {
             var useCase = new RegisterOrderItemsUseCase();
 
@@ -59,7 +59,7 @@ namespace TccRewritenCsharp.API.Controllers
 
         // DELETE: api/OrderItems/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ResponseOrderItemsIdJson>> DeleteOrderItem(Guid id)
+        public async Task<ActionResult> DeleteOrderItem(Guid id)
         {
             var useCase = new DeleteOrderItemsByIdUseCase();
 

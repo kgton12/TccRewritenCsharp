@@ -12,8 +12,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TccRewritenCsharp.Application", "TccRewritenCsharp.Application\TccRewritenCsharp.Application.csproj", "{3BAB8348-0D90-435D-8899-F13E559718BC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TccRewritenCsharp.API", "TccRewritenCsharp.API\TccRewritenCsharp.API.csproj", "{24773E23-149E-41E3-A2D5-F022E45E198A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{23851A27-BC89-4903-8D11-2E112A5F73AE} = {23851A27-BC89-4903-8D11-2E112A5F73AE}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TccRewritenCsharp.Test", "TccRewritenCsharp.Test\TccRewritenCsharp.Test.csproj", "{8C8F56DA-ACA1-4E4F-A4C5-10E312A64824}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TccRewritenCsharp.Test", "TccRewritenCsharp.Test\TccRewritenCsharp.Test.csproj", "{8C8F56DA-ACA1-4E4F-A4C5-10E312A64824}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

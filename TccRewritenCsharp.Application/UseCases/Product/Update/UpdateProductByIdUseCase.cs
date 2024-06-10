@@ -7,20 +7,15 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Product.Update
 {
-    public class UpdateProductByIdUseCase
+    public class UpdateProductByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-
-        public UpdateProductByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
         public async Task<ResponseProductIdJson> Execute(Guid id, RequestProductJson request)
         {
             var validate = new Util();
 
-            validate.Validate(request);
+            Util.Validate(request);
 
             var product = await _dbContext.Product.FirstOrDefaultAsync(x => x.Id == id);
 

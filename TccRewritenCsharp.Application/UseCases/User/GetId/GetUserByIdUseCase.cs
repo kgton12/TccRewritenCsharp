@@ -6,21 +6,15 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.User.GetId
 {
-    public class GetUserByIdUseCase
+    public class GetUserByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public GetUserByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
+
+        public async Task<ResponseGetUserJson> Execute(Guid id)
         {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+            Util.Validate(id);
 
-        public async Task<ResponseOrderUserJson> Execute(Guid id)
-        {
-            var validate = new Util();
-
-            validate.Validate(id);
-
-            var user = await _dbContext.User.Where(x => x.Id == id).Select(x => new ResponseOrderUserJson
+            var user = await _dbContext.User.Where(x => x.Id == id).Select(x => new ResponseGetUserJson
             {
                 Id = x.Id,
                 Name = x.Name,

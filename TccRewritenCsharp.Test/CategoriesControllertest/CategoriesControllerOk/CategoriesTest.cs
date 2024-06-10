@@ -51,7 +51,7 @@ namespace TccRewritenCsharp.Test.CategoriesControllertest.CategoriesControllerOk
 
             response.Should().BeOfType<ResponseCategoryJson>();
         }
-        internal async Task GetCategoryTestOk()
+        internal static async Task GetCategoryTestOk()
         {
             var useCase = new GetCategoryUseCase(ServiceEnvironment.Development);
 

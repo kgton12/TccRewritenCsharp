@@ -7,19 +7,15 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Product.Register
 {
-    public class RegisterProductUseCase
+    public class RegisterProductUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public RegisterProductUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
         public async Task<ResponseProductIdJson> Execute(RequestProductJson request)
         {
             var validate = new Util();
 
-            validate.Validate(request);
+            Util.Validate(request);
 
             var productExists = await _dbContext.Product.AnyAsync(x => x.Name == request.Name);
 

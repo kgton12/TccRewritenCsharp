@@ -5,16 +5,13 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.User.Get
 {
-    public class GetUserUseCase
+    public class GetUserUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public GetUserUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
+
+        public async Task<List<ResponseGetUserJson>> Execute()
         {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
-        public async Task<List<ResponseOrderUserJson>> Execute()
-        {
-            var user = await _dbContext.User.Select(x => new ResponseOrderUserJson
+            var user = await _dbContext.User.Select(x => new ResponseGetUserJson
             {
                 Id = x.Id,
                 Name = x.Name,

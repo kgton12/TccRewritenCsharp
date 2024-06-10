@@ -15,7 +15,7 @@ namespace TccRewritenCsharp.API.Controllers
     public class OrdersController : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ResponseOrderJson>>> GetOrder()
+        public async Task<ActionResult> GetOrder()
         {
             var useCase = new GetOrderUseCase();
 
@@ -25,7 +25,7 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ResponseOrderJson>> GetOrderById(Guid id)
+        public async Task<ActionResult> GetOrderById(Guid id)
         {
             var useCase = new GetOrderByIdUseCase();
 
@@ -34,7 +34,7 @@ namespace TccRewritenCsharp.API.Controllers
             return Ok(response);
         }
         [HttpGet("fullorder/{id}")]
-        public async Task<ActionResult<ResponseFullOrderJson>> GetFullOrderById(Guid id)
+        public async Task<ActionResult> GetFullOrderById(Guid id)
         {
             var useCase = new GetFullOrderByIdUseCase();
 
@@ -44,7 +44,7 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ResponseOrderIdJson>> UpdateOrderById(Guid id, RequestOrderJson request)
+        public async Task<ActionResult> UpdateOrderById(Guid id, RequestOrderJson request)
         {
             var useCase = new UpdateOrderByIdUseCase();
 
@@ -54,7 +54,7 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ResponseOrderIdJson>> RegisterOrder(RequestOrderJson request)
+        public async Task<ActionResult> RegisterOrder(RequestOrderJson request)
         {
             var useCase = new RegisterOrderUseCase();
 
@@ -64,7 +64,7 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ResponseOrderIdJson>> DeleteOrderById(Guid id)
+        public async Task<ActionResult> DeleteOrderById(Guid id)
         {
             var useCase = new DeleteOrderByIdUseCase();
 

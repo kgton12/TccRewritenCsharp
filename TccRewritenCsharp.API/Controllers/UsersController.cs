@@ -5,7 +5,7 @@ using TccRewritenCsharp.Application.UseCases.User.GetId;
 using TccRewritenCsharp.Application.UseCases.User.Register;
 using TccRewritenCsharp.Application.UseCases.User.Update;
 using TccRewritenCsharp.Communication.Requests.User;
-using TccRewritenCsharp.Communication.Response.User;
+
 
 namespace TccRewritenCsharp.API.Controllers
 {
@@ -14,7 +14,9 @@ namespace TccRewritenCsharp.API.Controllers
     public class UsersController : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ResponseOrderUserJson>>> GetUser()
+        //[ProducesResponseType(typeof(ResponseAllGetUserJson), StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> GetUser()
         {
             var useCase = new GetUserUseCase();
 
@@ -24,7 +26,9 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ResponseOrderUserJson>> GetUserById(Guid id)
+        //[ProducesResponseType(typeof(ResponseGetUserJson), StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> GetUserById(Guid id)
         {
             var useCase = new GetUserByIdUseCase();
 
@@ -34,7 +38,11 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ResponseUserIdJson>> RegisterUser([FromBody] RequestUserJson request)
+        //[ProducesResponseType(typeof(ResponseIdJson), StatusCodes.Status201Created)]
+        //[ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status409Conflict)]
+        public async Task<ActionResult> RegisterUser([FromBody] RequestUserJson request)
         {
             var useCase = new RegisterUserUseCase();
 
@@ -44,7 +52,7 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ResponseUserIdJson>> UpdateUserById([FromRoute] Guid id, [FromBody] RequestUserJson request)
+        public async Task<ActionResult> UpdateUserById([FromRoute] Guid id, [FromBody] RequestUserJson request)
         {
             var useCase = new UpdateUserByIdUseCase();
 
@@ -54,7 +62,7 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ResponseUserIdJson>> DeleteUserById(Guid id)
+        public async Task<ActionResult> DeleteUserById(Guid id)
         {
             var useCase = new DeleteUserByIdUseCase();
 

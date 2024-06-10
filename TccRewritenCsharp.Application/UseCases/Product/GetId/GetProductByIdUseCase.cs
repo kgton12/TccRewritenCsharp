@@ -6,19 +6,13 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Product.GetId
 {
-    public class GetProductByIdUseCase
+    public class GetProductByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public GetProductByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
         public async Task<ResponseGetProductJson> Execute(Guid id)
         {
-            var validate = new Util();
-
-            validate.Validate(id);
+            Util.Validate(id);
 
             var product = await _dbContext.Product.Where(x => x.Id == id).Select(x => new ResponseGetProductJson
             {

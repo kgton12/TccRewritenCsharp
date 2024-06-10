@@ -8,17 +8,13 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.OrderItems.Register
 {
-    public class RegisterOrderItemsUseCase
+    public class RegisterOrderItemsUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public RegisterOrderItemsUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
+
         public async Task<ResponseOrderItemsIdJson> Execute(RequestOrderItemsJson request)
         {
-            var validate = new Util();
-            validate.Validate(request);
+            Util.Validate(request);
 
             var orderItemsExists = await _dbContext.OrderItem.AnyAsync(x => x.OrderId == request.OrderId && x.ProductId == request.ProductId);
 

@@ -7,19 +7,13 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.User.Register
 {
-    public class RegisterUserUseCase
+    public class RegisterUserUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-
-        public RegisterUserUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
         public async Task<ResponseUserIdJson> Execute(RequestUserJson request)
         {
-            var validate = new Util();
-            validate.Validate(request);
+            Util.Validate(request);
 
             var userExists = await _dbContext.User.AnyAsync(x => x.Login == request.Login && x.Email == request.Email);
 

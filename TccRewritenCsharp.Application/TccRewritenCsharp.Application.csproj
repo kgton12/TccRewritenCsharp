@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TccRewritenCsharp.Communication\TccRewritenCsharp.Communication.csproj" />
+    <ProjectReference Include="..\TccRewritenCsharp.Exceptions\TccRewritenCsharp.Exceptions.csproj" />
     <ProjectReference Include="..\TccRewritenCsharp.Infrastructure\TccRewritenCsharp.Infrastructure.csproj" />
   </ItemGroup>
 

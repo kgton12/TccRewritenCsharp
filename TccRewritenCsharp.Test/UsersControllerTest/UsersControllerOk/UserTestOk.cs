@@ -11,10 +11,10 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 {
-    public class UserTest
+    public class UserTestOk
     {
         public Guid UserId { get; set; }
-        public UserTest()
+        public UserTestOk()
         {
             UserId = Guid.Empty;
         }
@@ -59,15 +59,15 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 
             var response = await useCase.Execute(UserId);
 
-            response.Should().BeOfType<ResponseOrderUserJson>();
+            response.Should().BeOfType<ResponseGetUserJson>();
         }
-        internal async Task GetUserTestOk()
+        internal static async Task GetUserTestOk()
         {
             var useCase = new GetUserUseCase(ServiceEnvironment.Development);
 
             var response = await useCase.Execute();
 
-            response.Should().BeOfType<List<ResponseOrderUserJson>>();
+            response.Should().BeOfType<List<ResponseGetUserJson>>();
         }
         internal async Task UpdateUserByIdTestOk()
         {

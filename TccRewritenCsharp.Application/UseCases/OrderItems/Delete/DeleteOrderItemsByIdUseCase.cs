@@ -5,13 +5,10 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.OrderItems.Delete
 {
-    public class DeleteOrderItemsByIdUseCase
+    public class DeleteOrderItemsByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public DeleteOrderItemsByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
+
         public async Task<ResponseOrderItemsIdJson> Execute(Guid id)
         {
             var orderItem = await _dbContext.OrderItem.FirstOrDefaultAsync(x => x.Id == id);

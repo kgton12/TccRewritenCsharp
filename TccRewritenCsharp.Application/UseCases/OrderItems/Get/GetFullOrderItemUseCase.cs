@@ -5,13 +5,10 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.OrderItems.Get
 {
-    public class GetFullOrderItemUseCase
+    public class GetFullOrderItemUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public GetFullOrderItemUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
+
         public async Task<List<ResponseGetOrderItemsJson>> Execute(Guid idOrder)
         {
             var orderItem = await _dbContext.OrderItem.Where(o => o.OrderId == idOrder).Select(x => new ResponseGetOrderItemsJson

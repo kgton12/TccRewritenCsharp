@@ -14,7 +14,7 @@ namespace TccRewritenCsharp.API.Controllers
     public class ProductsController : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ResponseGetProductJson>>> GetProduct()
+        public async Task<ActionResult> GetProduct()
         {
             var useCase = new GetProductUseCase();
 
@@ -24,7 +24,7 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ResponseGetProductJson>> GetProductById([FromRoute] Guid id)
+        public async Task<ActionResult> GetProductById([FromRoute] Guid id)
         {
             var useCase = new GetProductByIdUseCase();
 
@@ -34,7 +34,7 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ResponseProductIdJson>> UpdateProductById([FromRoute] Guid id, [FromBody] RequestProductJson request)
+        public async Task<ActionResult> UpdateProductById([FromRoute] Guid id, [FromBody] RequestProductJson request)
         {
             var useCase = new UpdateProductByIdUseCase();
 
@@ -44,7 +44,7 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ResponseProductIdJson>> RegisterProduct([FromBody] RequestProductJson request)
+        public async Task<ActionResult> RegisterProduct([FromBody] RequestProductJson request)
         {
             var useCase = new RegisterProductUseCase();
 
@@ -54,7 +54,7 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ResponseProductIdJson>> DeleteProductById(Guid id)
+        public async Task<ActionResult> DeleteProductById(Guid id)
         {
             var useCase = new DeleteProductByIdUseCase();
 

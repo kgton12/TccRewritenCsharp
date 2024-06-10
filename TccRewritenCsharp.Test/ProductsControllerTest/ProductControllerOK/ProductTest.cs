@@ -64,7 +64,7 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
             response.Should().BeOfType<ResponseGetProductJson>();
         }
 
-        internal async Task GetProductTestOk()
+        internal static async Task GetProductTestOk()
         {
             var useCase = new GetProductUseCase(ServiceEnvironment.Development);
 
@@ -99,7 +99,7 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
 
             response.Should().BeOfType<ResponseProductIdJson>();
         }
-        public async Task<Guid> CheckIfIxistsCategory()
+        public static async Task<Guid> CheckIfIxistsCategory()
         {
             var useCaseCategory = new GetCategoryUseCase(ServiceEnvironment.Development);
 

@@ -62,7 +62,7 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
 
             response.Should().BeOfType<ResponseOrderJson>();
         }
-        internal async Task GetOrderTestOk()
+        internal static async Task GetOrderTestOk()
         {
             var useCase = new GetOrderUseCase(ServiceEnvironment.Development);
 
@@ -101,7 +101,7 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
             response.Should().BeOfType<ResponseOrderIdJson>();
         }
 
-        public async Task<Guid> CheckIfIxistsUser()
+        public static async Task<Guid> CheckIfIxistsUser()
         {
             var UserUseCase = new GetUserUseCase(ServiceEnvironment.Development);
 
