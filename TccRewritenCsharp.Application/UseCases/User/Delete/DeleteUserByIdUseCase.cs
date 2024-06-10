@@ -6,19 +6,13 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.User.Delete
 {
-    public class DeleteUserByIdUseCase
+    public class DeleteUserByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public DeleteUserByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new TccRewritenCsharpDbContext(environment);
 
         public async Task<ResponseUserIdJson> Execute(Guid id)
         {
-            var validate = new Util();
-
-            validate.Validate(id);
+            Util.Validate(id);
 
             var user = await _dbContext.User.FirstOrDefaultAsync(x => x.Id == id);
 

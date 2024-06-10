@@ -2,7 +2,7 @@
 {
     public class Util
     {
-        public void Validate(Object request)
+        public static void Validate(Object request)
         {
             var properties = request.GetType().GetProperties();
 

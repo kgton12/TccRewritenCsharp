@@ -59,7 +59,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 
             var response = await useCase.Execute(UserId);
 
-            response.Should().BeOfType<ResponseOrderUserJson>();
+            response.Should().BeOfType<ResponseUserJson>();
         }
         internal async Task GetUserTestOk()
         {
@@ -67,7 +67,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 
             var response = await useCase.Execute();
 
-            response.Should().BeOfType<List<ResponseOrderUserJson>>();
+            response.Should().BeOfType<List<ResponseUserJson>>();
         }
         internal async Task UpdateUserByIdTestOk()
         {

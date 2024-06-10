@@ -5,13 +5,9 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Order.Get
 {
-    public class GetOrderUseCase
+    public class GetOrderUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public GetOrderUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
         public async Task<List<ResponseOrderJson>> Execute()
         {

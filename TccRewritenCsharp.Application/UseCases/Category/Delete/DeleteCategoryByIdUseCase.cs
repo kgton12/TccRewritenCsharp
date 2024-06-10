@@ -5,13 +5,9 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Category.Delete
 {
-    public class DeleteCategoryByIdUseCase
+    public class DeleteCategoryByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public DeleteCategoryByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new TccRewritenCsharpDbContext(environment);
 
         public async Task<ResponseCategoryIdJson> Execute(Guid id)
         {

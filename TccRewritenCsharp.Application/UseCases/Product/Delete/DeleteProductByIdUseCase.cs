@@ -6,19 +6,15 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Product.Delete
 {
-    public class DeleteProductByIdUseCase
+    public class DeleteProductByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public DeleteProductByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
         public async Task<ResponseProductIdJson> Execute(Guid id)
         {
             var validate = new Util();
 
-            validate.Validate(id);
+            Util.Validate(id);
             var product = await _dbContext.Product.FirstOrDefaultAsync(x => x.Id == id);
 
             if (product != null)

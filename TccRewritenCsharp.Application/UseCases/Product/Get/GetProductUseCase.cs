@@ -5,13 +5,10 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Product.Get
 {
-    public class GetProductUseCase
+    public class GetProductUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public GetProductUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
+
         public async Task<List<ResponseGetProductJson>> Execute()
         {
             var product = await _dbContext.Product.Select(x => new ResponseGetProductJson

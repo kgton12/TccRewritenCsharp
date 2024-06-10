@@ -1,6 +1,6 @@
 ﻿namespace TccRewritenCsharp.Communication.Response.User
 {
-    public class ResponseOrderUserJson
+    public class ResponseGetUserJson
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;

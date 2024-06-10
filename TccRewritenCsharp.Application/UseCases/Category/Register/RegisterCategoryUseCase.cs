@@ -6,18 +6,13 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Category.Register
 {
-    public class RegisterCategoryUseCase
+    public class RegisterCategoryUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public RegisterCategoryUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
+
         public async Task<ResponseCategoryIdJson> Execute(RequestCategoryJson request)
         {
-            var validate = new Util();
-
-            validate.Validate(request);
+            Util.Validate(request);
 
             var category = new Infrastructure.Entities.Category
             {

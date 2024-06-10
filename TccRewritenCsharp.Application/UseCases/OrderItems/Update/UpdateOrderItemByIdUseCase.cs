@@ -7,18 +7,13 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.OrderItems.Update
 {
-    public class UpdateOrderItemByIdUseCase
+    public class UpdateOrderItemByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public UpdateOrderItemByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
+
         public async Task<ResponseOrderItemsIdJson> Execute(Guid orderItemId, RequestOrderItemsJson request)
         {
-            var validate = new Util();
-
-            validate.Validate(request);
+            Util.Validate(request);
 
             var orderItem = await _dbContext.OrderItem.FirstOrDefaultAsync(x => x.Id == orderItemId);
             if (orderItem != null)
