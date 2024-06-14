@@ -1,8 +1,7 @@
 ﻿namespace TccRewritenCsharp.Communication.Response
 {
-    public class ResponseIdJson
+    public class ResponseIdJson(string message, string status, int statusCode) : ResponseDefaultJson(message, status, statusCode)
     {
         public Guid Id { get; set; }
-        public string Message { get; set; } = string.Empty;
     }
 }

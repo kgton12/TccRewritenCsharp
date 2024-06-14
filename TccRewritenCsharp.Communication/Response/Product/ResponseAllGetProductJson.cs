@@ -1,9 +1,8 @@
 ﻿
 namespace TccRewritenCsharp.Communication.Response.Product
 {
-    public class ResponseAllGetProductJson
+    public class ResponseAllGetProductJson(string message, string status, int statusCode) : ResponseDefaultJson(message, status, statusCode)
     {
-        public string Status { get; set; } = string.Empty;
-        public List<ResponseGetProductJson> Users { get; set; } = [];
+        public List<ProductJson> Products { get; set; } = [];
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Communication.Response.Order;
 using TccRewritenCsharp.Communication.Response.OrderItems;
+using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
 
@@ -19,7 +20,7 @@ namespace TccRewritenCsharp.Application.UseCases.Order.GetFull
 
             if (order == null)
             {
-                throw new Exception("Order not found");
+                return new ResponseFullOrderJson("Order not found", StatusJson.Error, StatusCode.NotFound) { };
             }
 
             foreach (var item in orderItems)
@@ -27,25 +28,25 @@ namespace TccRewritenCsharp.Application.UseCases.Order.GetFull
                 total += item.Quantity * item.UnitaryValue;
             }
 
-            var response = new ResponseFullOrderJson
+            var response = new ResponseFullOrderJson("", StatusJson.Success, StatusCode.Ok)
             {
                 Id = order.Id,
-                OrderItems = orderItems.Select(x => new ResponseGetOrderItemsJson
+                UserId = order.UserId,
+                Quantity = orderItems.Count,
+                Total = total,
+                Status = order.Status,
+                OrderItems = await _dbContext.OrderItem.Where(x => x.Id == id).Select(x => new OrderItemJson
                 {
                     Id = x.Id,
                     OrderId = x.OrderId,
                     ProductId = x.ProductId,
                     Quantity = x.Quantity,
-                    Total = x.Quantity * x.UnitaryValue,
                     UnitaryValue = x.UnitaryValue,
-                }).ToList(),
-                Total = total,
-                Quantity = orderItems.Count,
-                Status = order.Status,
-                UserId = order.UserId
+                    Total = x.Quantity * x.UnitaryValue
+                }).ToListAsync()
             };
 
-            return response;
+            return response ?? new ResponseFullOrderJson("Order not found", StatusJson.Error, StatusCode.NotFound) { };
         }
     }
 }

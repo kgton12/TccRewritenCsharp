@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TccRewritenCsharp.Communication.Response.OrderItems;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
 
@@ -9,7 +9,7 @@ namespace TccRewritenCsharp.Application.UseCases.OrderItems.Delete
     {
         private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
-        public async Task<ResponseOrderItemsIdJson> Execute(Guid id)
+        public async Task<ResponseIdJson> Execute(Guid id)
         {
             var orderItem = await _dbContext.OrderItem.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -17,14 +17,14 @@ namespace TccRewritenCsharp.Application.UseCases.OrderItems.Delete
             {
                 _dbContext.OrderItem.Remove(orderItem);
                 await _dbContext.SaveChangesAsync();
-                return new ResponseOrderItemsIdJson
+                return new ResponseIdJson("Order item deleted successfully", StatusJson.Success, StatusCode.Ok)
                 {
                     Id = orderItem.Id
                 };
             }
             else
             {
-                throw new Exception("Order Item not found");
+                return new ResponseIdJson("Order item not found", StatusJson.Error, StatusCode.NotFound);
             }
         }
     }

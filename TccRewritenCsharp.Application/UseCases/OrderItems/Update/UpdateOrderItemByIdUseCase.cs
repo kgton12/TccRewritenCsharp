@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.OrderItems;
-using TccRewritenCsharp.Communication.Response.OrderItems;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
 
@@ -11,7 +11,7 @@ namespace TccRewritenCsharp.Application.UseCases.OrderItems.Update
     {
         private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
-        public async Task<ResponseOrderItemsIdJson> Execute(Guid orderItemId, RequestOrderItemsJson request)
+        public async Task<ResponseIdJson> Execute(Guid orderItemId, RequestOrderItemsJson request)
         {
             Util.Validate(request);
 
@@ -26,14 +26,14 @@ namespace TccRewritenCsharp.Application.UseCases.OrderItems.Update
 
                 await _dbContext.SaveChangesAsync();
 
-                return new ResponseOrderItemsIdJson
+                return new ResponseIdJson("", StatusJson.Success, StatusCode.Ok)
                 {
                     Id = orderItem.Id
                 };
             }
             else
             {
-                throw new Exception("Order Item not found");
+                return new ResponseIdJson("Order item does not exist", StatusJson.Error, StatusCode.NotFound);
             }
         }
     }

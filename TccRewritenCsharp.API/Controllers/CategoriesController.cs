@@ -5,7 +5,6 @@ using TccRewritenCsharp.Application.UseCases.Category.GetId;
 using TccRewritenCsharp.Application.UseCases.Category.Register;
 using TccRewritenCsharp.Application.UseCases.Category.Update;
 using TccRewritenCsharp.Communication.Requests.Category;
-using TccRewritenCsharp.Communication.Response.Category;
 
 namespace TccRewritenCsharp.API.Controllers
 {

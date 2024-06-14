@@ -10,29 +10,32 @@ namespace TccRewritenCsharp.Application.UseCases.User.GetId
     {
         private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
-        public async Task<ResponseGetUserJson> Execute(Guid id)
+        public async Task<ResponseUserJson> Execute(Guid id)
         {
             Util.Validate(id);
 
-            var user = await _dbContext.User.Where(x => x.Id == id).Select(x => new ResponseGetUserJson
+            var response = new ResponseUserJson("", StatusJson.Success, StatusCode.Ok)
             {
-                Id = x.Id,
-                Name = x.Name,
-                LastName = x.LastName,
-                Login = x.Login,
-                PassWord = x.PassWord,
-                Email = x.Email,
-                Admin = x.Admin,
-                Telephone = x.Telephone,
-                Address = x.Address,
-                City = x.City,
-                State = x.State,
-                Country = x.Country,
-                ZipCode = x.ZipCode,
-                Number = x.Number
-            }).FirstOrDefaultAsync();
+                User = await _dbContext.User.Where(x => x.Id == id).Select(x => new UserJson
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    LastName = x.LastName,
+                    Login = x.Login,
+                    PassWord = x.PassWord,
+                    Email = x.Email,
+                    Admin = x.Admin,
+                    Telephone = x.Telephone,
+                    Address = x.Address,
+                    City = x.City,
+                    State = x.State,
+                    Country = x.Country,
+                    ZipCode = x.ZipCode,
+                    Number = x.Number
+                }).FirstOrDefaultAsync()
+            };
 
-            return user ?? throw new Exception("User not found");
+            return response ?? new ResponseUserJson("User not found", StatusJson.Error, StatusCode.NotFound);
         }
     }
 }

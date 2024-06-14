@@ -5,7 +5,6 @@ using TccRewritenCsharp.Application.UseCases.Product.GetId;
 using TccRewritenCsharp.Application.UseCases.Product.Register;
 using TccRewritenCsharp.Application.UseCases.Product.Update;
 using TccRewritenCsharp.Communication.Requests.Product;
-using TccRewritenCsharp.Communication.Response.Product;
 
 namespace TccRewritenCsharp.API.Controllers
 {

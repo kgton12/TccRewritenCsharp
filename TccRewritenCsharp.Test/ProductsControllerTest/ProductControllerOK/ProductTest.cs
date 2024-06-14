@@ -10,6 +10,7 @@ using TccRewritenCsharp.Application.UseCases.Product.Update;
 using TccRewritenCsharp.Communication.Requests.Category;
 using TccRewritenCsharp.Communication.Requests.Product;
 using TccRewritenCsharp.Communication.Response.Product;
+using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
@@ -105,9 +106,9 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
 
             var responseCategory = await useCaseCategory.Execute();
 
-            if (responseCategory.Count > 0)
+            if (responseCategory.Status == StatusJson.Success)
             {
-                return responseCategory[0].Id;
+                return responseCategory.CategoryJsons[0].Id;
             }
             else
             {

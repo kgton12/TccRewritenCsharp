@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Application.Utils;
-using TccRewritenCsharp.Communication.Response.User;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
 
@@ -10,7 +10,7 @@ namespace TccRewritenCsharp.Application.UseCases.User.Delete
     {
         private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
-        public async Task<ResponseUserIdJson> Execute(Guid id)
+        public async Task<ResponseIdJson> Execute(Guid id)
         {
             Util.Validate(id);
 
@@ -20,14 +20,14 @@ namespace TccRewritenCsharp.Application.UseCases.User.Delete
             {
                 _dbContext.User.Remove(user);
                 await _dbContext.SaveChangesAsync();
-                return new ResponseUserIdJson
+                return new ResponseIdJson("User successfully deleted", StatusJson.Success, StatusCode.Ok)
                 {
                     Id = user.Id
                 };
             }
             else
             {
-                throw new Exception("User not found");
+                return new ResponseIdJson("User not found", StatusJson.Error, 404);
             }
         }
 

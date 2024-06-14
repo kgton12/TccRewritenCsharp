@@ -9,19 +9,31 @@ namespace TccRewritenCsharp.Application.UseCases.OrderItems.Get
     {
         private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
-        public async Task<List<ResponseGetOrderItemsJson>> Execute(Guid idOrder)
+        public async Task<List<ResponseGetOrderItemsJson>> Execute(Guid OrderId)
         {
-            var orderItem = await _dbContext.OrderItem.Where(o => o.OrderId == idOrder).Select(x => new ResponseGetOrderItemsJson
+            var response = new List<ResponseGetOrderItemsJson>()
             {
-                Id = x.Id,
-                OrderId = x.OrderId,
-                ProductId = x.ProductId,
-                Quantity = x.Quantity,
-                Total = x.Total,
-                UnitaryValue = x.UnitaryValue
-            }).ToListAsync();
+                new("",StatusJson.Success, StatusCode.Ok)
+                {
+                    OrderItem = await _dbContext.OrderItem.Where(x => x.OrderId == OrderId).Select(x => new OrderItemJson
+                    {
+                       Id = x.Id,
+                       OrderId = x.OrderId,
+                       ProductId = x.ProductId,
+                       Quantity = x.Quantity,
+                       UnitaryValue = x.UnitaryValue,
+                       Total = x.Total
+                     }).ToListAsync()
+                }
+            };
 
-            return orderItem ?? throw new Exception("Order Items not found");
+            return response ??
+            [
+                new("Order items not found",StatusJson.Error, StatusCode.NotFound)
+                {
+                  OrderItem  = []
+                }
+            ];
         }
     }
 }

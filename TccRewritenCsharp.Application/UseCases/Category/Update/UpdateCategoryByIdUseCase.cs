@@ -1,21 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.Category;
-using TccRewritenCsharp.Communication.Response.Category;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Category.Update
 {
-    public class UpdateCategoryByIdUseCase
+    public class UpdateCategoryByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public UpdateCategoryByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
-        public async Task<ResponseCategoryIdJson> Execute(Guid id, RequestCategoryJson request)
+        public async Task<ResponseIdJson> Execute(Guid id, RequestCategoryJson request)
         {
             Util.Validate(request);
 
@@ -29,14 +25,14 @@ namespace TccRewritenCsharp.Application.UseCases.Category.Update
 
                 await _dbContext.SaveChangesAsync();
 
-                return new ResponseCategoryIdJson
+                return new ResponseIdJson("Category updated successfully", StatusJson.Success, StatusCode.Ok)
                 {
                     Id = category.Id
                 };
             }
             else
             {
-                throw new Exception("Category not found");
+                return new ResponseIdJson("Category not found", StatusJson.Error, StatusCode.NotFound);
             }
         }
     }

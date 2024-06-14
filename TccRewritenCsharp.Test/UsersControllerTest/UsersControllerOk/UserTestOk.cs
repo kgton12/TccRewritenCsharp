@@ -6,6 +6,7 @@ using TccRewritenCsharp.Application.UseCases.User.GetId;
 using TccRewritenCsharp.Application.UseCases.User.Register;
 using TccRewritenCsharp.Application.UseCases.User.Update;
 using TccRewritenCsharp.Communication.Requests.User;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure.Enums;
 
@@ -51,7 +52,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
             var response = await useCase.Execute(request);
             UserId = response.Id;
 
-            response.Should().BeOfType<ResponseUserIdJson>();
+            response.Should().BeOfType<ResponseIdJson>();
         }
         internal async Task GetUserByIdTestOk()
         {
@@ -59,7 +60,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 
             var response = await useCase.Execute(UserId);
 
-            response.Should().BeOfType<ResponseGetUserJson>();
+            response.Should().BeOfType<UserJson>();
         }
         internal static async Task GetUserTestOk()
         {
@@ -67,7 +68,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 
             var response = await useCase.Execute();
 
-            response.Should().BeOfType<List<ResponseGetUserJson>>();
+            response.Should().BeOfType<List<UserJson>>();
         }
         internal async Task UpdateUserByIdTestOk()
         {
@@ -90,7 +91,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 
             var response = await useCase.Execute(UserId, request);
 
-            response.Should().BeOfType<ResponseUserIdJson>();
+            response.Should().BeOfType<ResponseIdJson>();
         }
         internal async Task DeleteUserByIdTestOk()
         {
@@ -98,7 +99,7 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 
             var response = await useCase.Execute(UserId);
 
-            response.Should().BeOfType<ResponseUserIdJson>();
+            response.Should().BeOfType<ResponseIdJson>();
         }
     }
 }

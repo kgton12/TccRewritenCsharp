@@ -5,24 +5,23 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Application.UseCases.Category.GetId
 {
-    public class GetCategoryrByIdUseCase
+    public class GetCategoryrByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
     {
-        private readonly TccRewritenCsharpDbContext _dbContext;
-        public GetCategoryrByIdUseCase(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            _dbContext = new TccRewritenCsharpDbContext(environment);
-        }
+        private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
         public async Task<ResponseCategoryJson> Execute(Guid id)
         {
-            var category = await _dbContext.Category.Where(x => x.Id == id).Select(x => new ResponseCategoryJson
+            var response = new ResponseCategoryJson("", StatusJson.Success, StatusCode.Ok)
             {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description
-            }).FirstOrDefaultAsync();
+                Category = await _dbContext.Category.Where(x => x.Id == id).Select(x => new CategoryJson
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description
+                }).FirstOrDefaultAsync()
+            };
 
-            return category ?? throw new Exception("Category not found");
+            return response ?? new ResponseCategoryJson("Category Not Found", StatusJson.Error, StatusCode.NotFound) { Category = null };
         }
     }
 }

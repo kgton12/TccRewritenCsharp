@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.OrderItems;
-using TccRewritenCsharp.Communication.Response.OrderItems;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Entities;
 using TccRewritenCsharp.Infrastructure.Enums;
@@ -12,7 +12,7 @@ namespace TccRewritenCsharp.Application.UseCases.OrderItems.Register
     {
         private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
-        public async Task<ResponseOrderItemsIdJson> Execute(RequestOrderItemsJson request)
+        public async Task<ResponseIdJson> Execute(RequestOrderItemsJson request)
         {
             Util.Validate(request);
 
@@ -20,7 +20,7 @@ namespace TccRewritenCsharp.Application.UseCases.OrderItems.Register
 
             if (orderItemsExists)
             {
-                throw new Exception("Order or product does not exist");
+                return new ResponseIdJson("Order item already exists", StatusJson.Error, StatusCode.BadRequest);
             }
 
             var orderItems = new OrderItem
@@ -36,7 +36,7 @@ namespace TccRewritenCsharp.Application.UseCases.OrderItems.Register
 
             _dbContext.OrderItem.Add(orderItems);
             await _dbContext.SaveChangesAsync();
-            return new ResponseOrderItemsIdJson
+            return new ResponseIdJson("Order item registered successfully", StatusJson.Success, StatusCode.Ok)
             {
                 Id = orderItems.Id
             };

@@ -14,17 +14,20 @@ namespace TccRewritenCsharp.Application.UseCases.Product.GetId
         {
             Util.Validate(id);
 
-            var product = await _dbContext.Product.Where(x => x.Id == id).Select(x => new ResponseGetProductJson
+            var response = new ResponseGetProductJson("", StatusJson.Success, StatusCode.Ok)
             {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description,
-                Price = x.Price,
-                Stock = x.Stock,
-                CategoryId = x.CategoryId
-            }).FirstOrDefaultAsync();
+                ProductJson = await _dbContext.Product.Where(x => x.Id == id).Select(x => new ProductJson
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    Price = x.Price,
+                    Stock = x.Stock,
+                    CategoryId = x.CategoryId
+                }).FirstOrDefaultAsync()
+            };
 
-            return product ?? throw new Exception("Product not found");
+            return response ?? new ResponseGetProductJson("Product not found", StatusJson.Error, StatusCode.NotFound);
         }
     }
 }

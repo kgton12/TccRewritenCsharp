@@ -1,6 +1,6 @@
 ﻿using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.Category;
-using TccRewritenCsharp.Communication.Response.Category;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
 
@@ -10,7 +10,7 @@ namespace TccRewritenCsharp.Application.UseCases.Category.Register
     {
         private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
-        public async Task<ResponseCategoryIdJson> Execute(RequestCategoryJson request)
+        public async Task<ResponseIdJson> Execute(RequestCategoryJson request)
         {
             Util.Validate(request);
 
@@ -25,7 +25,7 @@ namespace TccRewritenCsharp.Application.UseCases.Category.Register
             _dbContext.Category.Add(category);
             await _dbContext.SaveChangesAsync();
 
-            return new ResponseCategoryIdJson
+            return new ResponseIdJson("Category successfully registered", StatusJson.Success, StatusCode.Ok)
             {
                 Id = category.Id
             };

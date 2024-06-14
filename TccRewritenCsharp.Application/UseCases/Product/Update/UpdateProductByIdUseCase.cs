@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.Product;
-using TccRewritenCsharp.Communication.Response.Product;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
 
@@ -11,10 +11,8 @@ namespace TccRewritenCsharp.Application.UseCases.Product.Update
     {
         private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
-        public async Task<ResponseProductIdJson> Execute(Guid id, RequestProductJson request)
+        public async Task<ResponseIdJson> Execute(Guid id, RequestProductJson request)
         {
-            var validate = new Util();
-
             Util.Validate(request);
 
             var product = await _dbContext.Product.FirstOrDefaultAsync(x => x.Id == id);
@@ -30,14 +28,14 @@ namespace TccRewritenCsharp.Application.UseCases.Product.Update
                 product.UpdatedAt = DateTime.Now;
 
                 await _dbContext.SaveChangesAsync();
-                return new ResponseProductIdJson
+                return new ResponseIdJson("", StatusJson.Success, StatusCode.Ok)
                 {
                     Id = product.Id
                 };
             }
             else
             {
-                throw new Exception("Product not found");
+                return new ResponseIdJson("Product not found", StatusJson.Error, StatusCode.NotFound);
             }
         }
     }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.User;
-using TccRewritenCsharp.Communication.Response.User;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
 
@@ -11,7 +11,7 @@ namespace TccRewritenCsharp.Application.UseCases.User.Register
     {
         private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
-        public async Task<ResponseUserIdJson> Execute(RequestUserJson request)
+        public async Task<ResponseIdJson> Execute(RequestUserJson request)
         {
             Util.Validate(request);
 
@@ -19,7 +19,7 @@ namespace TccRewritenCsharp.Application.UseCases.User.Register
 
             if (userExists)
             {
-                throw new Exception("User already exists");
+                return new ResponseIdJson("User already exists", StatusJson.Error, StatusCode.BadRequest);
             }
 
             var user = new Infrastructure.Entities.User
@@ -44,7 +44,7 @@ namespace TccRewritenCsharp.Application.UseCases.User.Register
             _dbContext.User.Add(user);
             await _dbContext.SaveChangesAsync();
 
-            return new ResponseUserIdJson
+            return new ResponseIdJson("Successfully created", StatusJson.Success, StatusCode.Ok)
             {
                 Id = user.Id
             };

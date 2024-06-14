@@ -4,13 +4,9 @@ using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Infrastructure
 {
-    public class TccRewritenCsharpDbContext : DbContext
+    public class TccRewritenCsharpDbContext(ServiceEnvironment environment = ServiceEnvironment.Production) : DbContext
     {
-        internal ServiceEnvironment Environment { get; set; }
-        public TccRewritenCsharpDbContext(ServiceEnvironment environment = ServiceEnvironment.Production)
-        {
-            Environment = environment;
-        }
+        internal ServiceEnvironment Environment { get; set; } = environment;
         public DbSet<User> User { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<Order> Order { get; set; }

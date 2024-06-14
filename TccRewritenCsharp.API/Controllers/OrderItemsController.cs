@@ -5,7 +5,6 @@ using TccRewritenCsharp.Application.UseCases.OrderItems.GetId;
 using TccRewritenCsharp.Application.UseCases.OrderItems.Register;
 using TccRewritenCsharp.Application.UseCases.OrderItems.Update;
 using TccRewritenCsharp.Communication.Requests.OrderItems;
-using TccRewritenCsharp.Communication.Response.OrderItems;
 
 namespace TccRewritenCsharp.API.Controllers
 {

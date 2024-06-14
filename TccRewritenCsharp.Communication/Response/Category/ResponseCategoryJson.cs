@@ -1,8 +1,7 @@
 ﻿namespace TccRewritenCsharp.Communication.Response.Category
 {
-    public class ResponseCategoryJson : ResponseIdJson
+    public class ResponseCategoryJson(string message, string status, int statusCode) : ResponseDefaultJson(message, status, statusCode)
     {
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        public CategoryJson? Category { get; set; }
     }
 }

@@ -1,12 +1,7 @@
 ﻿namespace TccRewritenCsharp.Communication.Response.OrderItems
 {
-    public class ResponseGetOrderItemsJson
+    public class ResponseGetOrderItemsJson(string message, string status, int statusCode) : ResponseDefaultJson(message, status, statusCode)
     {
-        public Guid Id { get; set; }
-        public Guid OrderId { get; set; }
-        public Guid ProductId { get; set; }
-        public int Quantity { get; set; }
-        public decimal Total { get; set; }
-        public decimal UnitaryValue { get; set; }
+        public List<OrderItemJson>? OrderItem { get; set; }
     }
 }

@@ -5,8 +5,6 @@ using TccRewritenCsharp.Application.UseCases.User.GetId;
 using TccRewritenCsharp.Application.UseCases.User.Register;
 using TccRewritenCsharp.Application.UseCases.User.Update;
 using TccRewritenCsharp.Communication.Requests.User;
-using TccRewritenCsharp.Communication.Response;
-using TccRewritenCsharp.Communication.Response.User;
 
 
 namespace TccRewritenCsharp.API.Controllers
@@ -16,8 +14,6 @@ namespace TccRewritenCsharp.API.Controllers
     public class UsersController : ControllerBase
     {
         [HttpGet]
-        //[ProducesResponseType(typeof(ResponseAllGetUserJson), StatusCodes.Status200OK)]
-        //[ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
         public async Task<ActionResult> GetUser()
         {
             var useCase = new GetUserUseCase();
@@ -28,8 +24,6 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpGet("{id}")]
-        //[ProducesResponseType(typeof(ResponseGetUserJson), StatusCodes.Status200OK)]
-        //[ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
         public async Task<ActionResult> GetUserById(Guid id)
         {
             var useCase = new GetUserByIdUseCase();
@@ -40,10 +34,6 @@ namespace TccRewritenCsharp.API.Controllers
         }
 
         [HttpPost]
-        //[ProducesResponseType(typeof(ResponseIdJson), StatusCodes.Status201Created)]
-        //[ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status409Conflict)]
         public async Task<ActionResult> RegisterUser([FromBody] RequestUserJson request)
         {
             var useCase = new RegisterUserUseCase();

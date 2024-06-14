@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Application.Utils;
 using TccRewritenCsharp.Communication.Requests.User;
-using TccRewritenCsharp.Communication.Response.User;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
 
@@ -11,7 +11,7 @@ namespace TccRewritenCsharp.Application.UseCases.User.Update
     {
         private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
-        public async Task<ResponseUserIdJson> Execute(Guid id, RequestUserJson request)
+        public async Task<ResponseIdJson> Execute(Guid id, RequestUserJson request)
         {
             Util.Validate(request);
 
@@ -35,14 +35,15 @@ namespace TccRewritenCsharp.Application.UseCases.User.Update
                 user.Number = request.Number;
 
                 await _dbContext.SaveChangesAsync();
-                return new ResponseUserIdJson
+
+                return new ResponseIdJson("User updated successfully", StatusJson.Success, StatusCode.Ok)
                 {
                     Id = user.Id
                 };
             }
             else
             {
-                throw new Exception("User not found");
+                return new ResponseIdJson("User not found", StatusJson.Error, StatusCode.NotFound);
             }
         }
     }

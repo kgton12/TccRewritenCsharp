@@ -9,27 +9,39 @@ namespace TccRewritenCsharp.Application.UseCases.User.Get
     {
         private readonly TccRewritenCsharpDbContext _dbContext = new(environment);
 
-        public async Task<List<ResponseGetUserJson>> Execute()
+        public async Task<List<ResponseAllGetUserJson>> Execute()
         {
-            var user = await _dbContext.User.Select(x => new ResponseGetUserJson
+            var response = new List<ResponseAllGetUserJson>()
             {
-                Id = x.Id,
-                Name = x.Name,
-                LastName = x.LastName,
-                Login = x.Login,
-                PassWord = x.PassWord,
-                Email = x.Email,
-                Admin = x.Admin,
-                Telephone = x.Telephone,
-                Address = x.Address,
-                City = x.City,
-                State = x.State,
-                Country = x.Country,
-                ZipCode = x.ZipCode,
-                Number = x.Number
-            }).ToListAsync();
+                new("",StatusJson.Success, StatusCode.Ok)
+                {
+                    Users = await _dbContext.User.Select(x => new UserJson
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        LastName = x.LastName,
+                        Login = x.Login,
+                        PassWord = x.PassWord,
+                        Email = x.Email,
+                        Admin = x.Admin,
+                        Telephone = x.Telephone,
+                        Address = x.Address,
+                        City = x.City,
+                        State = x.State,
+                        Country = x.Country,
+                        ZipCode = x.ZipCode,
+                        Number = x.Number
+                     }).ToListAsync()
+                }
+            };
 
-            return user ?? throw new Exception("User not found");
+            return response ??
+            [
+                new("User not found",StatusJson.Error, StatusCode.NotFound)
+                {
+                    Users = []
+                }
+            ];
         }
     }
 }

@@ -11,16 +11,19 @@ namespace TccRewritenCsharp.Application.UseCases.Order.GetId
 
         public async Task<ResponseOrderJson> Execute(Guid id)
         {
-            var order = await _dbContext.Order.Where(x => x.Id == id).Select(x => new ResponseOrderJson
+            var response = new ResponseOrderJson("", StatusJson.Success, StatusCode.Ok)
             {
-                Id = x.Id,
-                UserId = x.UserId,
-                Quantity = x.Quantity,
-                Total = x.Total,
-                Status = x.Status
-            }).FirstOrDefaultAsync();
+                Order = await _dbContext.Order.Where(x => x.Id == id).Select(x => new OrderJson
+                {
+                    Id = x.Id,
+                    Quantity = x.Quantity,
+                    Status = x.Status,
+                    Total = x.Total,
+                    UserId = x.UserId
+                }).ToListAsync()
+            };
 
-            return order ?? throw new Exception("Order not found");
+            return response ?? new ResponseOrderJson("Order not found", StatusJson.Error, StatusCode.NotFound) { Order = null };
         }
 
     }
