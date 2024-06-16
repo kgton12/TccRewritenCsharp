@@ -13,7 +13,15 @@ namespace TccRewritenCsharp.Application.UseCases.Product.Update
 
         public async Task<ResponseIdJson> Execute(Guid id, RequestProductJson request)
         {
-            Util.Validate(request);
+            var valid = Util.Validate(request);
+
+            if (Util.Validate(request).IsValid == false)
+                return new ResponseIdJson(valid.Message, StatusJson.Error, StatusCode.BadRequest);
+
+            var validId = Util.ValidateId(id);
+
+            if (validId.IsValid == false)
+                return new ResponseIdJson(validId.Message, StatusJson.Error, StatusCode.BadRequest);
 
             var product = await _dbContext.Product.FirstOrDefaultAsync(x => x.Id == id);
 

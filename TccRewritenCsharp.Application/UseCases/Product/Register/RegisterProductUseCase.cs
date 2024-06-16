@@ -13,7 +13,10 @@ namespace TccRewritenCsharp.Application.UseCases.Product.Register
 
         public async Task<ResponseIdJson> Execute(RequestProductJson request)
         {
-            Util.Validate(request);
+            var valid = Util.Validate(request);
+
+            if (Util.Validate(request).IsValid == false)
+                return new ResponseIdJson(valid.Message, StatusJson.Error, StatusCode.BadRequest);
 
             var productExists = await _dbContext.Product.AnyAsync(x => x.Name == request.Name);
 

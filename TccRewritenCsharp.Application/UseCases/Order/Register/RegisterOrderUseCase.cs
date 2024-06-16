@@ -12,7 +12,10 @@ namespace TccRewritenCsharp.Application.UseCases.Order.Register
 
         public async Task<ResponseIdJson> Execute(RequestOrderJson request)
         {
-            Util.Validate(request);
+            var valid = Util.Validate(request);
+
+            if (Util.Validate(request).IsValid == false)
+                return new ResponseIdJson(valid.Message, StatusJson.Error, StatusCode.BadRequest);
 
             var user = await _dbContext.User.FindAsync(request.UserId);
 

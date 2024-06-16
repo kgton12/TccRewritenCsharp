@@ -11,6 +11,7 @@ using TccRewritenCsharp.Application.UseCases.Product.Register;
 using TccRewritenCsharp.Communication.Requests.Order;
 using TccRewritenCsharp.Communication.Requests.OrderItems;
 using TccRewritenCsharp.Communication.Requests.Product;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Communication.Response.OrderItems;
 using TccRewritenCsharp.Infrastructure.Enums;
 using TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk;
@@ -58,7 +59,7 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
             var response = await useCase.Execute(request);
             OrderItemId = response.Id;
 
-            response.Should().BeOfType<ResponseOrderItemsIdJson>();
+            response.Should().BeOfType<ResponseIdJson>();
         }
         internal async Task GetOrderItemByIdTestOk()
         {
@@ -90,7 +91,7 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
 
             var response = await useCase.Execute(OrderItemId, request);
 
-            response.Should().BeOfType<ResponseOrderItemsIdJson>();
+            response.Should().BeOfType<ResponseIdJson>();
         }
         internal async Task DeleteOrderItemByIdTestOk()
         {
@@ -98,7 +99,7 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
 
             var response = await useCase.Execute(OrderItemId);
 
-            response.Should().BeOfType<ResponseOrderItemsIdJson>();
+            response.Should().BeOfType<ResponseIdJson>();
         }
 
         internal static async Task<Guid> CheckIfIxistsOrder()
@@ -107,9 +108,9 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
 
             var orderResponse = await orderUseCase.Execute();
 
-            if (orderResponse.Count > 0)
+            if (orderResponse != null && orderResponse.Count > 0 && orderResponse.FirstOrDefault()?.Order?.Count > 0)
             {
-                return orderResponse[0].Id;
+                return orderResponse.FirstOrDefault()?.Order?.First()?.Id ?? Guid.Empty;
             }
             else
             {
@@ -117,10 +118,10 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
                 var userId = await OrderTest.CheckIfIxistsUser();
 
                 var request = new Faker<RequestOrderJson>()
-                 .RuleFor(x => x.UserId, f => userId)
-                 .RuleFor(x => x.Quantity, f => f.Random.Int(1, 100))
-                 .RuleFor(x => x.Status, f => f.PickRandom<Status>())
-                 .Generate();
+                    .RuleFor(x => x.UserId, f => userId)
+                    .RuleFor(x => x.Quantity, f => f.Random.Int(1, 100))
+                    .RuleFor(x => x.Status, f => f.PickRandom<Status>())
+                    .Generate();
 
                 var registerOrderUseCase = new RegisterOrderUseCase(ServiceEnvironment.Development);
 
@@ -135,9 +136,9 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
 
             var ProductResponse = await GetProductUseCase.Execute();
 
-            if (ProductResponse.Count > 0)
+            if (ProductResponse.Count > 0 && ProductResponse.FirstOrDefault()?.Products?.Count > 0)
             {
-                return ProductResponse[0].Id;
+                return ProductResponse.FirstOrDefault()?.Products?.First()?.Id ?? Guid.Empty;
             }
             else
             {
@@ -145,13 +146,13 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
                 var CategoryId = await ProductTest.CheckIfIxistsCategory();
 
                 var request = new Faker<RequestProductJson>()
-               .RuleFor(x => x.Name, f => f.Commerce.ProductName())
-               .RuleFor(x => x.Description, f => f.Commerce.ProductDescription())
-               .RuleFor(x => x.Price, f => f.Random.Decimal(0, 1000))
-               .RuleFor(x => x.Stock, f => f.Random.Int(0, 1000))
-               .RuleFor(x => x.Image, f => f.Image.PicsumUrl())
-               .RuleFor(x => x.CategoryId, CategoryId)
-               .Generate();
+                    .RuleFor(x => x.Name, f => f.Commerce.ProductName())
+                    .RuleFor(x => x.Description, f => f.Commerce.ProductDescription())
+                    .RuleFor(x => x.Price, f => f.Random.Decimal(0, 1000))
+                    .RuleFor(x => x.Stock, f => f.Random.Int(0, 1000))
+                    .RuleFor(x => x.Image, f => f.Image.PicsumUrl())
+                    .RuleFor(x => x.CategoryId, CategoryId)
+                    .Generate();
 
                 var registerProductUseCase = new RegisterProductUseCase(ServiceEnvironment.Development);
 

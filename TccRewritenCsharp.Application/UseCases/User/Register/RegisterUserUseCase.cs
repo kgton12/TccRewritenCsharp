@@ -13,7 +13,11 @@ namespace TccRewritenCsharp.Application.UseCases.User.Register
 
         public async Task<ResponseIdJson> Execute(RequestUserJson request)
         {
-            Util.Validate(request);
+            var valid = Util.Validate(request);
+
+            if (Util.Validate(request).IsValid == false)
+                return new ResponseIdJson(valid.Message, StatusJson.Error, StatusCode.BadRequest);
+
 
             var userExists = await _dbContext.User.AnyAsync(x => x.Login == request.Login && x.Email == request.Email);
 

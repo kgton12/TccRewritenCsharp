@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Application.Utils;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
@@ -12,7 +13,11 @@ namespace TccRewritenCsharp.Application.UseCases.User.GetId
 
         public async Task<ResponseUserJson> Execute(Guid id)
         {
-            Util.Validate(id);
+            var validId = Util.ValidateId(id);
+
+            if (validId.IsValid == false)
+                return new ResponseUserJson(validId.Message, StatusJson.Error, StatusCode.NotFound);
+
 
             var response = new ResponseUserJson("", StatusJson.Success, StatusCode.Ok)
             {

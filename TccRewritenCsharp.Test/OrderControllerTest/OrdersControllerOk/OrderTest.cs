@@ -10,6 +10,7 @@ using TccRewritenCsharp.Application.UseCases.User.Get;
 using TccRewritenCsharp.Application.UseCases.User.Register;
 using TccRewritenCsharp.Communication.Requests.Order;
 using TccRewritenCsharp.Communication.Requests.User;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Communication.Response.Order;
 using TccRewritenCsharp.Infrastructure.Enums;
 
@@ -52,7 +53,7 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
             var response = await useCase.Execute(request);
             OrderId = response.Id;
 
-            response.Should().BeOfType<ResponseOrderIdJson>();
+            response.Should().BeOfType<ResponseIdJson>();
         }
         internal async Task GetOrderByIdTestOk()
         {
@@ -90,7 +91,7 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
 
             var response = await useCase.Execute(OrderId, request);
 
-            response.Should().BeOfType<ResponseOrderIdJson>();
+            response.Should().BeOfType<ResponseIdJson>();
         }
         internal async Task DeleteOrderByIdTestOk()
         {
@@ -98,7 +99,7 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
 
             var response = await useCase.Execute(OrderId);
 
-            response.Should().BeOfType<ResponseOrderIdJson>();
+            response.Should().BeOfType<ResponseIdJson>();
         }
 
         public static async Task<Guid> CheckIfIxistsUser()
@@ -107,27 +108,27 @@ namespace TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk
 
             var UserResponse = await UserUseCase.Execute();
 
-            if (UserResponse.Count > 0)
+            if (UserResponse.Count > 0 && UserResponse[0].Users != null && UserResponse[0].Users.Any())
             {
-                return UserResponse[0].Id;
+                return UserResponse[0].Users.First().Id;
             }
             else
             {
                 var request = new Faker<RequestUserJson>()
-               .RuleFor(x => x.Name, f => f.Person.FirstName)
-               .RuleFor(x => x.LastName, f => f.Person.LastName)
-               .RuleFor(x => x.Login, f => f.Person.UserName)
-               .RuleFor(x => x.PassWord, f => f.Internet.Password())
-               .RuleFor(x => x.Email, f => f.Person.Email)
-               .RuleFor(x => x.Admin, f => f.Random.Bool())
-               .RuleFor(x => x.Telephone, f => f.Person.Phone)
-               .RuleFor(x => x.Address, f => f.Address.StreetName())
-               .RuleFor(x => x.City, f => f.Address.City())
-               .RuleFor(x => x.State, f => f.Address.State())
-               .RuleFor(x => x.Country, f => f.Address.Country())
-               .RuleFor(x => x.ZipCode, f => f.Address.ZipCode())
-               .RuleFor(x => x.Number, f => f.Address.BuildingNumber())
-               .Generate();
+                    .RuleFor(x => x.Name, f => f.Person.FirstName)
+                    .RuleFor(x => x.LastName, f => f.Person.LastName)
+                    .RuleFor(x => x.Login, f => f.Person.UserName)
+                    .RuleFor(x => x.PassWord, f => f.Internet.Password())
+                    .RuleFor(x => x.Email, f => f.Person.Email)
+                    .RuleFor(x => x.Admin, f => f.Random.Bool())
+                    .RuleFor(x => x.Telephone, f => f.Person.Phone)
+                    .RuleFor(x => x.Address, f => f.Address.StreetName())
+                    .RuleFor(x => x.City, f => f.Address.City())
+                    .RuleFor(x => x.State, f => f.Address.State())
+                    .RuleFor(x => x.Country, f => f.Address.Country())
+                    .RuleFor(x => x.ZipCode, f => f.Address.ZipCode())
+                    .RuleFor(x => x.Number, f => f.Address.BuildingNumber())
+                    .Generate();
 
                 var RegisterUseCase = new RegisterUserUseCase(ServiceEnvironment.Development);
 

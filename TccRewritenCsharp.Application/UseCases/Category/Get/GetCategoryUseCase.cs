@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Communication.Response.Category;
-using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
 
@@ -31,7 +30,7 @@ namespace TccRewritenCsharp.Application.UseCases.Category.Get
                 {
                     Category = []
                 }
-            ];           
+            ];
         }
     }
 }

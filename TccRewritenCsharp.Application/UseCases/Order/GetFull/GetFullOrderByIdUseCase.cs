@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TccRewritenCsharp.Application.Utils;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Communication.Response.Order;
 using TccRewritenCsharp.Communication.Response.OrderItems;
-using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
 
@@ -13,6 +14,11 @@ namespace TccRewritenCsharp.Application.UseCases.Order.GetFull
 
         public async Task<ResponseFullOrderJson> Execute(Guid id)
         {
+            var validId = Util.ValidateId(id);
+
+            if (validId.IsValid == false)
+                return new ResponseFullOrderJson(validId.Message, StatusJson.Error, StatusCode.BadRequest);
+
             decimal total = 0;
 
             var order = await _dbContext.Order.Where(x => x.Id == id).FirstOrDefaultAsync();

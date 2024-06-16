@@ -14,7 +14,10 @@ namespace TccRewritenCsharp.Application.UseCases.OrderItems.Register
 
         public async Task<ResponseIdJson> Execute(RequestOrderItemsJson request)
         {
-            Util.Validate(request);
+            var valid = Util.Validate(request);
+
+            if (Util.Validate(request).IsValid == false)
+                return new ResponseIdJson(valid.Message, StatusJson.Error, StatusCode.BadRequest);
 
             var orderItemsExists = await _dbContext.OrderItem.AnyAsync(x => x.OrderId == request.OrderId && x.ProductId == request.ProductId);
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Application.Utils;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Communication.Response.Product;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
@@ -12,7 +13,10 @@ namespace TccRewritenCsharp.Application.UseCases.Product.GetId
 
         public async Task<ResponseGetProductJson> Execute(Guid id)
         {
-            Util.Validate(id);
+            var validId = Util.ValidateId(id);
+
+            if (validId.IsValid == false)
+                return new ResponseGetProductJson(validId.Message, StatusJson.Error, StatusCode.BadRequest);
 
             var response = new ResponseGetProductJson("", StatusJson.Success, StatusCode.Ok)
             {

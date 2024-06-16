@@ -12,7 +12,10 @@ namespace TccRewritenCsharp.Application.UseCases.User.Delete
 
         public async Task<ResponseIdJson> Execute(Guid id)
         {
-            Util.Validate(id);
+            var valid = Util.ValidateId(id);
+
+            if (valid.IsValid == false)            
+                return new ResponseIdJson(valid.Message, StatusJson.Error, StatusCode.BadRequest);            
 
             var user = await _dbContext.User.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -27,7 +30,7 @@ namespace TccRewritenCsharp.Application.UseCases.User.Delete
             }
             else
             {
-                return new ResponseIdJson("User not found", StatusJson.Error, 404);
+                return new ResponseIdJson("User not found", StatusJson.Error, StatusCode.BadRequest);
             }
         }
 

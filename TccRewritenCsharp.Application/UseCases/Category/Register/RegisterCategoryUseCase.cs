@@ -12,7 +12,10 @@ namespace TccRewritenCsharp.Application.UseCases.Category.Register
 
         public async Task<ResponseIdJson> Execute(RequestCategoryJson request)
         {
-            Util.Validate(request);
+            var valid = Util.Validate(request);
+
+            if (Util.Validate(request).IsValid == false)
+                return new ResponseIdJson(valid.Message, StatusJson.Error, StatusCode.BadRequest);
 
             var category = new Infrastructure.Entities.Category
             {

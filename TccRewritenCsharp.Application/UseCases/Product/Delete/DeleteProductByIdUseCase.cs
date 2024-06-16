@@ -12,7 +12,12 @@ namespace TccRewritenCsharp.Application.UseCases.Product.Delete
 
         public async Task<ResponseIdJson> Execute(Guid id)
         {
-            Util.Validate(id);
+            var validId = Util.ValidateId(id);
+
+            if (validId.IsValid == false)
+                return new ResponseIdJson(validId.Message, StatusJson.Error, StatusCode.BadRequest);
+
+
             var product = await _dbContext.Product.FirstOrDefaultAsync(x => x.Id == id);
 
             if (product != null)

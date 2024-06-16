@@ -13,7 +13,16 @@ namespace TccRewritenCsharp.Application.UseCases.OrderItems.Update
 
         public async Task<ResponseIdJson> Execute(Guid orderItemId, RequestOrderItemsJson request)
         {
-            Util.Validate(request);
+            var valid = Util.Validate(request);
+
+            if (Util.Validate(request).IsValid == false)
+                return new ResponseIdJson(valid.Message, StatusJson.Error, StatusCode.BadRequest);
+
+            var validId = Util.ValidateId(orderItemId);
+
+            if (validId.IsValid == false)
+                return new ResponseIdJson(validId.Message, StatusJson.Error, StatusCode.BadRequest);
+
 
             var orderItem = await _dbContext.OrderItem.FirstOrDefaultAsync(x => x.Id == orderItemId);
             if (orderItem != null)

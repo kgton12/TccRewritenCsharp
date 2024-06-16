@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TccRewritenCsharp.Application.Utils;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Communication.Response.OrderItems;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
@@ -11,6 +13,17 @@ namespace TccRewritenCsharp.Application.UseCases.OrderItems.Get
 
         public async Task<List<ResponseGetOrderItemsJson>> Execute(Guid OrderId)
         {
+            var validId = Util.ValidateId(OrderId);
+
+            if (validId.IsValid == false)
+                return 
+                [
+                    new(validId.Message,StatusJson.Error, StatusCode.BadRequest)
+                    {
+                        OrderItem  = []
+                    }
+                ];
+
             var response = new List<ResponseGetOrderItemsJson>()
             {
                 new("",StatusJson.Success, StatusCode.Ok)

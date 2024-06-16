@@ -9,6 +9,7 @@ using TccRewritenCsharp.Application.UseCases.Product.Register;
 using TccRewritenCsharp.Application.UseCases.Product.Update;
 using TccRewritenCsharp.Communication.Requests.Category;
 using TccRewritenCsharp.Communication.Requests.Product;
+using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Communication.Response.Product;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
@@ -53,7 +54,7 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
             var response = await useCase.Execute(request);
             ProductId = response.Id;
 
-            response.Should().BeOfType<ResponseProductIdJson>();
+            response.Should().BeOfType<ResponseIdJson>();
         }
 
         internal async Task GetProductByIdTestOk()
@@ -71,7 +72,7 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
 
             var response = await useCase.Execute();
 
-            response.Should().BeOfType<List<ResponseGetProductJson>>();
+            response.Should().BeOfType<List<ResponseAllGetProductJson>>();
         }
 
         internal async Task UpdateProductByIdTestOk()
@@ -89,7 +90,7 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
 
             var response = await useCase.Execute(ProductId, request);
 
-            response.Should().BeOfType<ResponseProductIdJson>();
+            response.Should().BeOfType<ResponseIdJson>();
         }
 
         internal async Task DeleteProductByIdTestOk()
@@ -98,7 +99,7 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
 
             var response = await useCase.Execute(ProductId);
 
-            response.Should().BeOfType<ResponseProductIdJson>();
+            response.Should().BeOfType<ResponseIdJson>();
         }
         public static async Task<Guid> CheckIfIxistsCategory()
         {
@@ -106,16 +107,18 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
 
             var responseCategory = await useCaseCategory.Execute();
 
-            if (responseCategory.Status == StatusJson.Success)
+            if (responseCategory.FirstOrDefault()?.Status == StatusJson.Success)
             {
-                return responseCategory.CategoryJsons[0].Id;
+                var firstCategory = responseCategory.FirstOrDefault()?.Category.FirstOrDefault();
+
+                return firstCategory?.Id ?? Guid.Empty;
             }
             else
             {
                 var request = new Faker<RequestCategoryJson>()
-               .RuleFor(x => x.Name, f => f.Lorem.Word())
-               .RuleFor(x => x.Description, f => f.Lorem.Word())
-               .Generate();
+                    .RuleFor(x => x.Name, f => f.Lorem.Word())
+                    .RuleFor(x => x.Description, f => f.Lorem.Word())
+                    .Generate();
 
                 var useCaseRegisterCategory = new RegisterCategoryUseCase(ServiceEnvironment.Development);
 

@@ -13,7 +13,15 @@ namespace TccRewritenCsharp.Application.UseCases.User.Update
 
         public async Task<ResponseIdJson> Execute(Guid id, RequestUserJson request)
         {
-            Util.Validate(request);
+            var valid = Util.Validate(request);
+
+            if (Util.Validate(request).IsValid == false)
+                return new ResponseIdJson(valid.Message, StatusJson.Error, StatusCode.BadRequest);
+
+            var validId = Util.ValidateId(id);
+
+            if (validId.IsValid == false)
+                return new ResponseIdJson(validId.Message, StatusJson.Error, StatusCode.BadRequest);
 
             var user = await _dbContext.User.FirstOrDefaultAsync(x => x.Id == id);
 

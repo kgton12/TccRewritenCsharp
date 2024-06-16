@@ -1,8 +1,11 @@
-﻿namespace TccRewritenCsharp.Application.Utils
+﻿using TccRewritenCsharp.Communication.Response;
+using TccRewritenCsharp.Infrastructure;
+
+namespace TccRewritenCsharp.Application.Utils
 {
     public class Util
     {
-        public static void Validate(Object request)
+        public static ValidationValue Validate(Object request)
         {
             var properties = request.GetType().GetProperties();
 
@@ -21,8 +24,22 @@
             if (missingFields.Count != 0)
             {
                 var missingFieldsString = string.Join(", ", missingFields);
-                throw new Exception($"The following fields are missing or empty: {missingFieldsString}");
+                return new ValidationValue { IsValid = false, Message = $"The following fields are missing or empty: {missingFieldsString}" };
             }
+            return new ValidationValue { IsValid = true, Message = string.Empty };
         }
+
+        public static ValidationValue ValidateId(Guid id)
+        {
+            if (!Guid.TryParse(id.ToString(), out Guid result))
+                return new ValidationValue { IsValid = false, Message = "ID invalid" };
+
+            return new ValidationValue { IsValid = true, Message = string.Empty };
+        }
+    }
+    public class ValidationValue()
+    {
+        public bool IsValid { get; set; }
+        public string Message { get; set; } = string.Empty;
     }
 }
