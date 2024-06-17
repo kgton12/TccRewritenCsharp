@@ -13,6 +13,8 @@ using TccRewritenCsharp.Communication.Requests.OrderItems;
 using TccRewritenCsharp.Communication.Requests.Product;
 using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Communication.Response.OrderItems;
+using TccRewritenCsharp.Communication.Response.User;
+using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
 using TccRewritenCsharp.Test.OrderControllerTest.OrdersControllerOk;
 using TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK;
@@ -59,7 +61,8 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
             var response = await useCase.Execute(request);
             OrderItemId = response.Id;
 
-            response.Should().BeOfType<ResponseIdJson>();
+            response.Should().BeOfType<ResponseIdJson>()
+                .And.Match<ResponseIdJson>(r => r.StatusCode == StatusCode.Ok && r.Status == StatusJson.Success);
         }
         internal async Task GetOrderItemByIdTestOk()
         {
@@ -67,7 +70,8 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
 
             var response = await useCase.Execute(OrderId);
 
-            response.Should().BeOfType<List<ResponseGetOrderItemsJson>>();
+            response.Should().BeOfType<List<ResponseGetOrderItemsJson>>()
+                .And.Match<List<ResponseGetOrderItemsJson>>(r => r.All(user => user.StatusCode == StatusCode.Ok && user.Status == StatusJson.Success));
         }
         internal async Task GetOrderItemTestOk()
         {
@@ -75,7 +79,8 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
 
             var response = await useCase.Execute(OrderId);
 
-            response.Should().BeOfType<List<ResponseGetOrderItemsJson>>();
+            response.Should().BeOfType<List<ResponseGetOrderItemsJson>>()
+                .And.Match<List<ResponseGetOrderItemsJson>>(r => r.All(user => user.StatusCode == StatusCode.Ok && user.Status == StatusJson.Success));
         }
         internal async Task UpdateOrderItemByIdTestOk()
         {
@@ -91,7 +96,8 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
 
             var response = await useCase.Execute(OrderItemId, request);
 
-            response.Should().BeOfType<ResponseIdJson>();
+            response.Should().BeOfType<ResponseIdJson>()
+                .And.Match<ResponseIdJson>(r => r.StatusCode == StatusCode.Ok && r.Status == StatusJson.Success);
         }
         internal async Task DeleteOrderItemByIdTestOk()
         {
@@ -99,7 +105,8 @@ namespace TccRewritenCsharp.Test.OrderItemItemsControllerTest.OrderItemItemsCont
 
             var response = await useCase.Execute(OrderItemId);
 
-            response.Should().BeOfType<ResponseIdJson>();
+            response.Should().BeOfType<ResponseIdJson>()
+                .And.Match<ResponseIdJson>(r => r.StatusCode == StatusCode.Ok && r.Status == StatusJson.Success);
         }
 
         internal static async Task<Guid> CheckIfIxistsOrder()

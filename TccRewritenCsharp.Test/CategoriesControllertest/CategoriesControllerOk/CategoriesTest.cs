@@ -8,6 +8,8 @@ using TccRewritenCsharp.Application.UseCases.Category.Update;
 using TccRewritenCsharp.Communication.Requests.Category;
 using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Communication.Response.Category;
+using TccRewritenCsharp.Communication.Response.User;
+using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Test.CategoriesControllertest.CategoriesControllerOk
@@ -42,7 +44,8 @@ namespace TccRewritenCsharp.Test.CategoriesControllertest.CategoriesControllerOk
             var response = await useCase.Execute(request);
             CategoryId = response.Id;
 
-            response.Should().BeOfType<ResponseIdJson>();
+            response.Should().BeOfType<ResponseIdJson>()
+                .And.Match<ResponseIdJson>(r => r.StatusCode == StatusCode.Ok && r.Status == StatusJson.Success);
         }
         internal async Task GetCategoryByIdTestOk()
         {
@@ -50,7 +53,8 @@ namespace TccRewritenCsharp.Test.CategoriesControllertest.CategoriesControllerOk
 
             var response = await useCase.Execute(CategoryId);
 
-            response.Should().BeOfType<ResponseCategoryJson>();
+            response.Should().BeOfType<ResponseCategoryJson>()
+                .And.Match<ResponseCategoryJson>(r => r.StatusCode == StatusCode.Ok && r.Status == StatusJson.Success);
         }
         internal static async Task GetCategoryTestOk()
         {
@@ -58,7 +62,8 @@ namespace TccRewritenCsharp.Test.CategoriesControllertest.CategoriesControllerOk
 
             var response = await useCase.Execute();
 
-            response.Should().BeOfType<List<ResponseAllGetCategoryJson>>();
+            response.Should().BeOfType<List<ResponseAllGetCategoryJson>>()
+                .And.Match<List<ResponseAllGetCategoryJson>>(r => r.All(user => user.StatusCode == StatusCode.Ok && user.Status == StatusJson.Success));
         }
         internal async Task UpdateCategoryByIdTestOk()
         {
@@ -70,7 +75,8 @@ namespace TccRewritenCsharp.Test.CategoriesControllertest.CategoriesControllerOk
 
             var response = await useCase.Execute(CategoryId, request);
 
-            response.Should().BeOfType<ResponseIdJson>();
+            response.Should().BeOfType<ResponseIdJson>()
+                .And.Match<ResponseIdJson>(r => r.StatusCode == StatusCode.Ok && r.Status == StatusJson.Success);
         }
         internal async Task DeleteCategoryByIdTestOk()
         {
@@ -78,7 +84,8 @@ namespace TccRewritenCsharp.Test.CategoriesControllertest.CategoriesControllerOk
 
             var response = await useCase.Execute(CategoryId);
 
-            response.Should().BeOfType<ResponseIdJson>();
+            response.Should().BeOfType<ResponseIdJson>()
+                .And.Match<ResponseIdJson>(r => r.StatusCode == StatusCode.Ok && r.Status == StatusJson.Success);
         }
     }
 }

@@ -8,6 +8,7 @@ using TccRewritenCsharp.Application.UseCases.User.Update;
 using TccRewritenCsharp.Communication.Requests.User;
 using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Communication.Response.User;
+using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
 
 namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
@@ -52,7 +53,8 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
             var response = await useCase.Execute(request);
             UserId = response.Id;
 
-            response.Should().BeOfType<ResponseIdJson>();
+            response.Should().BeOfType<ResponseIdJson>()
+                .And.Match<ResponseIdJson>(r => r.StatusCode == StatusCode.Ok && r.Status == StatusJson.Success);
         }
         internal async Task GetUserByIdTestOk()
         {
@@ -60,7 +62,8 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 
             var response = await useCase.Execute(UserId);
 
-            response.Should().BeOfType<ResponseUserJson>();
+            response.Should().BeOfType<ResponseUserJson>()
+                .And.Match<ResponseUserJson>(r => r.StatusCode == StatusCode.Ok && r.Status == StatusJson.Success);
         }
         internal static async Task GetUserTestOk()
         {
@@ -68,7 +71,8 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 
             var response = await useCase.Execute();
 
-            response.Should().BeOfType<List<ResponseAllGetUserJson>>();
+            response.Should().BeOfType<List<ResponseAllGetUserJson>>()
+                .And.Match<List<ResponseAllGetUserJson>>(r => r.All(user => user.StatusCode == StatusCode.Ok && user.Status == StatusJson.Success));
         }
         internal async Task UpdateUserByIdTestOk()
         {
@@ -91,7 +95,8 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 
             var response = await useCase.Execute(UserId, request);
 
-            response.Should().BeOfType<ResponseIdJson>();
+            response.Should().BeOfType<ResponseIdJson>()
+                .And.Match<ResponseIdJson>(r => r.StatusCode == StatusCode.Ok && r.Status == StatusJson.Success);
         }
         internal async Task DeleteUserByIdTestOk()
         {
@@ -99,7 +104,8 @@ namespace TccRewritenCsharp.Test.UsersControllerTest.UsersControllerOk
 
             var response = await useCase.Execute(UserId);
 
-            response.Should().BeOfType<ResponseIdJson>();
+            response.Should().BeOfType<ResponseIdJson>()
+                .And.Match<ResponseIdJson>(r => r.StatusCode == StatusCode.Ok && r.Status == StatusJson.Success);
         }
     }
 }

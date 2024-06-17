@@ -14,8 +14,8 @@ namespace TccRewritenCsharp.Application.UseCases.User.Delete
         {
             var valid = Util.ValidateId(id);
 
-            if (valid.IsValid == false)            
-                return new ResponseIdJson(valid.Message, StatusJson.Error, StatusCode.BadRequest);            
+            if (valid.IsValid == false)
+                return new ResponseIdJson(valid.Message, StatusJson.Error, StatusCode.BadRequest);
 
             var user = await _dbContext.User.FirstOrDefaultAsync(x => x.Id == id);
 

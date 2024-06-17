@@ -9,7 +9,7 @@ namespace TccRewritenCsharp.Communication.Response.Order
         public Guid UserId { get; set; }
         public int Quantity { get; set; }
         public decimal Total { get; set; }
-        public Status Status { get; set; }
+        public Status StatusOrder { get; set; }
         public List<OrderItemJson> OrderItems { get; set; } = [];
     }
 }

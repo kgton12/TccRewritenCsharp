@@ -1,7 +1,4 @@
-﻿using TccRewritenCsharp.Communication.Response;
-using TccRewritenCsharp.Infrastructure;
-
-namespace TccRewritenCsharp.Application.Utils
+﻿namespace TccRewritenCsharp.Application.Utils
 {
     public class Util
     {

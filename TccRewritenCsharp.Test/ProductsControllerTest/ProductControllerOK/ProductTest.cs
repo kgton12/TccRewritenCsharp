@@ -11,6 +11,7 @@ using TccRewritenCsharp.Communication.Requests.Category;
 using TccRewritenCsharp.Communication.Requests.Product;
 using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Communication.Response.Product;
+using TccRewritenCsharp.Communication.Response.User;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
 
@@ -54,7 +55,8 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
             var response = await useCase.Execute(request);
             ProductId = response.Id;
 
-            response.Should().BeOfType<ResponseIdJson>();
+            response.Should().BeOfType<ResponseIdJson>()
+               .And.Match<ResponseIdJson>(r => r.StatusCode == StatusCode.Ok && r.Status == StatusJson.Success);
         }
 
         internal async Task GetProductByIdTestOk()
@@ -63,7 +65,8 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
 
             var response = await useCase.Execute(ProductId);
 
-            response.Should().BeOfType<ResponseGetProductJson>();
+            response.Should().BeOfType<ResponseGetProductJson>()
+               .And.Match<ResponseGetProductJson>(r => r.StatusCode == StatusCode.Ok && r.Status == StatusJson.Success);
         }
 
         internal static async Task GetProductTestOk()
@@ -72,7 +75,8 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
 
             var response = await useCase.Execute();
 
-            response.Should().BeOfType<List<ResponseAllGetProductJson>>();
+            response.Should().BeOfType<List<ResponseAllGetProductJson>>()
+                .And.Match<List<ResponseAllGetProductJson>>(r => r.All(user => user.StatusCode == StatusCode.Ok && user.Status == StatusJson.Success));
         }
 
         internal async Task UpdateProductByIdTestOk()
@@ -90,7 +94,8 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
 
             var response = await useCase.Execute(ProductId, request);
 
-            response.Should().BeOfType<ResponseIdJson>();
+            response.Should().BeOfType<ResponseIdJson>()
+                .And.Match<ResponseIdJson>(r => r.StatusCode == StatusCode.Ok && r.Status == StatusJson.Success);
         }
 
         internal async Task DeleteProductByIdTestOk()
@@ -99,7 +104,8 @@ namespace TccRewritenCsharp.Test.ProductControllerTest.ProductControllerOK
 
             var response = await useCase.Execute(ProductId);
 
-            response.Should().BeOfType<ResponseIdJson>();
+            response.Should().BeOfType<ResponseIdJson>()
+    .           And.Match<ResponseIdJson>(r => r.StatusCode == StatusCode.Ok && r.Status == StatusJson.Success);
         }
         public static async Task<Guid> CheckIfIxistsCategory()
         {

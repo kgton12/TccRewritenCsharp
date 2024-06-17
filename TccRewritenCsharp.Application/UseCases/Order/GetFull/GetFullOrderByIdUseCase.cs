@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Application.Utils;
-using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Communication.Response.Order;
 using TccRewritenCsharp.Communication.Response.OrderItems;
 using TccRewritenCsharp.Infrastructure;
@@ -40,7 +39,7 @@ namespace TccRewritenCsharp.Application.UseCases.Order.GetFull
                 UserId = order.UserId,
                 Quantity = orderItems.Count,
                 Total = total,
-                Status = order.Status,
+                StatusOrder = order.Status,
                 OrderItems = await _dbContext.OrderItem.Where(x => x.Id == id).Select(x => new OrderItemJson
                 {
                     Id = x.Id,

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TccRewritenCsharp.Application.Utils;
-using TccRewritenCsharp.Communication.Response;
 using TccRewritenCsharp.Communication.Response.Product;
 using TccRewritenCsharp.Infrastructure;
 using TccRewritenCsharp.Infrastructure.Enums;
