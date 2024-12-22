@@ -1,68 +1,120 @@
-# TccRewritenCsharp
+# 📚 TccRewritenCsharp
 
-Este repositório contém a reescrita do projeto TCC em C#. Ele é composto por vários subprojetos que juntos formam a aplicação completa.
+## 🌟 Project Overview
 
-## Estrutura do Projeto
+The **TccRewritenCsharp** project is a rewrite of a TCC (Course Completion Work) project in C#. It is structured as a multi-project solution that includes various subprojects to form a complete application. The main goal is to provide a robust and scalable API for managing:
 
-- **TccRewritenCsharp.sln**: Solução principal que agrupa todos os projetos.
-- **TccRewritenCsharp.API**: Projeto principal da API.
-- **TccRewritenCsharp.Application**: Contém os casos de uso da aplicação.
-- **TccRewritenCsharp.Communication**: Contém as classes de requisição e resposta usadas na comunicação entre a API e os clientes.
-- **TccRewritenCsharp.Exceptions**: Contém as exceções customizadas usadas na aplicação.
-- **TccRewritenCsharp.Infrastructure**: Contém a infraestrutura da aplicação, como acesso a dados e serviços externos.
-- **TccRewritenCsharp.Test**: Contém os testes unitários e de integração da aplicação.
+- 🛒 Orders
+- 📦 Products
+- 🏷️ Categories
+- 👤 Users
+- 🧾 Order Items
 
-## Projetos
+---
 
-### TccRewritenCsharp.API
+## 🏗️ Project Structure
 
-Este projeto contém a API principal da aplicação.
+Here is the structure of the project:
 
-- **Arquivos principais**:
-  - `Program.cs`: Ponto de entrada da aplicação.
-  - `appsettings.json`: Configurações da aplicação.
-  - `Controllers/`: Contém os controladores da API.
+- **📂 TccRewritenCsharp.sln**: The main solution file that groups all the projects.
+- **🚀 TccRewritenCsharp.API**: The main API project.
+- **📝 TccRewritenCsharp.Application**: Contains the use cases of the application.
+- **🔗 TccRewritenCsharp.Communication**: Contains request and response classes.
+- **⚠️ TccRewritenCsharp.Exceptions**: Contains custom exceptions.
+- **💾 TccRewritenCsharp.Infrastructure**: Manages data access and external services.
+- **🧪 TccRewritenCsharp.Test**: Contains unit and integration tests.
 
-### TccRewritenCsharp.Application
+---
 
-Este projeto contém os casos de uso da aplicação.
+## ✨ Features
 
-- **Namespaces principais**:
-  - `TccRewritenCsharp.Application.UseCases.Category`: Casos de uso relacionados a categorias.
-  - `TccRewritenCsharp.Application.UseCases.User`: Casos de uso relacionados a usuários.
-  - `TccRewritenCsharp.Application.UseCases.Product`: Casos de uso relacionados a produtos.
-  - `TccRewritenCsharp.Application.UseCases.Order`: Casos de uso relacionados a pedidos.
-  - `TccRewritenCsharp.Application.UseCases.OrderItems`: Casos de uso relacionados a itens de pedidos.
+### 🔧 **TccRewritenCsharp.API**
 
-### TccRewritenCsharp.Communication
+Handles HTTP requests and responses through API controllers:
 
-Este projeto contém as classes de requisição e resposta usadas na comunicação entre a API e os clientes.
+- **📄 Controllers**:
+  - 🛒 `OrdersController`: Manages orders.
+  - 📦 `ProductsController`: Manages products.
+  - 🏷️ `CategoriesController`: Manages categories.
+  - 👤 `UsersController`: Manages users.
+  - 🧾 `OrderItemsController`: Manages order items.
+- **⚙️ Configuration**: Setup in `Program.cs`, including routing, Swagger, and environment settings.
 
-- **Namespaces principais**:
-  - `TccRewritenCsharp.Communication.Requests`: Classes de requisição.
-  - `TccRewritenCsharp.Communication.Response`: Classes de resposta.
+### 🛠️ **TccRewritenCsharp.Application**
 
-### TccRewritenCsharp.Exceptions
+Implements business logic operations:
 
-Este projeto contém as exceções customizadas usadas na aplicação.
+- **📚 Use Cases**:
+  - 🛒 Orders
+  - 📦 Products
+  - 🏷️ Categories
+  - 👤 Users
+  - 🧾 Order Items
+- **🔍 Utilities**: Common validation and helper operations.
 
-### TccRewritenCsharp.Infrastructure
+### 🔗 **TccRewritenCsharp.Communication**
 
-Este projeto contém a infraestrutura da aplicação, como acesso a dados e serviços externos.
+Facilitates API-client communication:
 
-### TccRewritenCsharp.Test
+- **📩 Requests**:
+  - `RequestOrderJson`, `RequestProductJson`, `RequestCategoryJson`, etc.
+- **📤 Responses**:
+  - `ResponseOrderJson`, `ResponseProductJson`, `ResponseCategoryJson`, etc.
 
-Este projeto contém os testes unitários e de integração da aplicação.
+### ⚠️ **TccRewritenCsharp.Exceptions**
 
-- **Namespaces principais**:
-  - `TccRewritenCsharp.Test.CategoriesControllerTest`: Testes relacionados ao controlador de categorias.
-  - `TccRewritenCsharp.Test.UsersControllerTest`: Testes relacionados ao controlador de usuários.
-  - `TccRewritenCsharp.Test.ProductsControllerTest`: Testes relacionados ao controlador de produtos.
-  - `TccRewritenCsharp.Test.OrderControllerTest`: Testes relacionados ao controlador de pedidos.
-  - `TccRewritenCsharp.Test.OrderItemsControllerTest`: Testes relacionados ao controlador de itens de pedidos.
+Defines custom exceptions for better error handling.
 
-## Como Executar
+### 💾 **TccRewritenCsharp.Infrastructure**
 
-1. Clone o repositório:
-   ```sh
-   git clone https://github.com/seu-usuario/TccRewritenCsharp.git
+Manages data access and external services:
+
+- **📊 Entities**: Models like `Order`, `Product`, `Category`, `User`, and `OrderItem`.
+- **🛢️ DbContext**: `TccRewritenCsharpDbContext` manages database operations.
+- **🛠️ Configuration**: Database connection strings and settings.
+- **📑 Enums**: Constants like `ServiceEnvironment` and `Status`.
+
+### 🧪 **TccRewritenCsharp.Test**
+
+Ensures application reliability:
+
+- **✅ Test Cases**: Covers controllers and use cases.
+  - `OrderTest`, `ProductTest`, `CategoryTest`, `UserTest`, `OrderItemTest`.
+
+---
+
+## 📦 Libraries Used
+
+- `Microsoft.EntityFrameworkCore` 🗃️: Database access.
+- `Microsoft.EntityFrameworkCore.Design` 🎨: Design-time tools.
+- `Microsoft.EntityFrameworkCore.InMemory` 🧪: In-memory database for testing.
+- `Microsoft.EntityFrameworkCore.Sqlite` 📀: SQLite provider.
+- `Swashbuckle.AspNetCore` 🐍: Swagger documentation.
+- `Bogus` 🎲: Fake data generation.
+- `FluentAssertions` ✍️: Readable assertions for tests.
+- `xUnit` 🧪: Testing framework.
+
+---
+
+## 🚀 How to Run
+
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   ```
+
+2. **Open the solution in Visual Studio**.
+
+3. **Build the solution** to restore dependencies and compile the projects.
+
+4. **Run the API project** (`TccRewritenCsharp.API`) to start the application.
+
+5. **Interact with the API** using:
+   - Swagger (for documentation and testing).
+   - Any API client (e.g., Postman).
+
+---
+
+## 💡 Summary
+
+This project provides a scalable and clean architecture solution for managing orders, products, categories, users, and order items. Designed for maintainability and robustness, it serves as a solid foundation for API-based applications. 🚀
